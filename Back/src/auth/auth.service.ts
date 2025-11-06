@@ -53,7 +53,7 @@ export class AuthService {
     // };
 
     return {
-      id: user._id,  
+      id: user._id,
       username: user.username,
       email: user.email,
       firstName: user.firstName,
