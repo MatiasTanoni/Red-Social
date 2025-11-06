@@ -21,7 +21,7 @@ export class AuthController {
     const existingUsername = await this.authService.findOneByUsername(createUserDto.username);
 
     console.log('EXISTING EMAIL', existingEmail);
-    console.log('EXISTING USERNAME', existingUsername); 
+    console.log('EXISTING USERNAME', existingUsername);
     if (existingEmail) {
       throw new BadRequestException('El email ya está registrado');
     }
@@ -34,9 +34,11 @@ export class AuthController {
     //   // const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
     //   // createUserDto.profileImage = imageUploadResult.secure_url;
     // }
+    console.log('createUserDto', createUserDto);
 
     const user = await this.authService.create(createUserDto);
-    return user;
+    console.log('USER', user);
+    return { success: true, message: 'Usuario registrado exitosamente', user };
   }
 
   @Post('login')

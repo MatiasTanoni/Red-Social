@@ -15,10 +15,20 @@ export class Auth {
     private router: Router
   ) { }
 
-  register(formData: FormData) : Promise<{success: boolean, message: string}> {
-    console.log('AuthService.register called with formData:', formData);
-    return firstValueFrom(this.http.post<{success: boolean, message: string}>(`${this.apiUrl}/register`, formData));
+  async register(formData: FormData): Promise<{ success: boolean, message: string }> {
+    console.log('AUTH SERVICE REGISTER', formData);
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean, message: string }>(`${this.apiUrl}/register`, formData)
+      );
+      console.log('RESPUESTA DEL BACK:', response);
+      return response;
+    } catch (error) {
+      console.error('ERROR EN REGISTRO:', error);
+      throw error;
+    }
   }
+
 
   async login(usernameOrEmail: string, password: string): Promise<any> {
     try {

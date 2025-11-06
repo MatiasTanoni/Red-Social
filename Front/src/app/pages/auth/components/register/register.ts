@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../../../service/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class Register implements OnInit {
   registerError: string | null = null;
   selectedFile: File | null = null;
 
-  constructor(private auth: Auth, private cdr: ChangeDetectorRef) { }
+  constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
     this.formulario = new FormGroup(
@@ -53,7 +54,7 @@ export class Register implements OnInit {
         birthDate: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         perfil: new FormControl('usuario', [Validators.required]),
-        profileImage: new FormControl(null, [Validators.required]),
+        // profileImage: new FormControl(null, [Validators.required]),
       },
       {
         validators: this.passwordsMatchValidator,
@@ -97,6 +98,7 @@ export class Register implements OnInit {
       const { success, message } = await this.auth.register(formValue);
 
       if (success) {
+        this.router.navigate(['/publications']);
         // Redirigir al login, al home, etc.
       } else {
         console.error('Error en el registro:', message);

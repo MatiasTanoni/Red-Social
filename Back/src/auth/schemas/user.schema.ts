@@ -9,7 +9,7 @@ export class User {
     username: string;
 
     @Prop({ required: true })
-    firstName: string;
+    name: string;
 
     @Prop({ required: true })
     lastName: string;
@@ -30,7 +30,7 @@ export class User {
     profileImage?: string;
 
     @Prop({ default: "false" })
-    isAdmin: string;
+    perfil: string;
 
     @Prop({ default: Date.now })
     createdAt: Date;

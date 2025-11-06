@@ -13,6 +13,7 @@ export class AuthService {
   ) { }
 
   async create(userData: any): Promise<any> {
+    console.log('CREATING USER IN AUTH SERVICE:', userData);
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
     userData.email = userData.email.toLocaleLowerCase();
@@ -23,7 +24,7 @@ export class AuthService {
       show: true,
       password: hashedPassword
     });
-
+    console.log('NEW USER:', newUser);
     return newUser.save();
   }
 
