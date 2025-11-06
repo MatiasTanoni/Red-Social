@@ -1,0 +1,96 @@
+<nav class="bg-black text-white px-6 py-4 flex items-center justify-between border-b border-gray-800 shadow-sm">
+    <div class="flex items-center space-x-3">
+        <img src="icono.png" class="w-10 h-10 cursor-pointer bg-white rounded-md p-1" routerLink="/">
+
+        <span class="text-xl font-bold tracking-wide">Red Social</span>
+    </div>
+
+    <button class="md:hidden focus:outline-none" (click)="isOpen = !isOpen">
+        @if (!isOpen) {
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        } @else {
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        }
+    </button>
+
+    <ul class="hidden md:flex space-x-8 text-lg items-center font-medium">
+        <li>
+            <a [routerLink]="!blockNavegation ? '/publications' : null"
+                routerLinkActive="border-b-2 border-white font-semibold text-white"
+                class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+                Publicaciones
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="!blockNavegation ? '/my-profile' : null"
+                routerLinkActive="border-b-2 border-white font-semibold text-white"
+                class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+                Mi Perfil
+            </a>
+        </li>
+
+        @if (true) {
+        <li>
+            <a [routerLink]="!blockNavegation ? '/auth' : null"
+                routerLinkActive="border-b-2 border-white font-semibold text-white"
+                class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+                Iniciar Sesión / Registrarse
+            </a>
+        </li>
+        } @else {
+        <li class="flex items-center space-x-5">
+            <span class="font-semibold">{{ "Bienvenido, " + "!"}}</span>
+            <button (click)="requestLogout()"
+                class="bg-white text-black hover:bg-gray-200 font-medium py-1 px-3 rounded-lg transition cursor-pointer">
+                Cerrar sesión
+            </button>
+        </li>
+        }
+    </ul>
+</nav>
+
+@if (isOpen) {
+<ul class="md:hidden flex flex-col space-y-4 bg-black text-lg px-6 py-4 text-white border-b border-gray-800">
+    <li>
+        <a [routerLink]="!blockNavegation ? '/publications' : null"
+            routerLinkActive="border-b-2 border-white font-semibold text-white"
+            class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+            Publicaciones
+        </a>
+    </li>
+    <li>
+        <a [routerLink]="!blockNavegation ? '/my-profile' : null"
+            routerLinkActive="border-b-2 border-white font-semibold text-white"
+            class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+            Mi Perfil
+        </a>
+    </li>
+
+    @if (true) {
+    <li>
+        <a [routerLink]="!blockNavegation ? '/auth' : null"
+            routerLinkActive="border-b-2 border-white font-semibold text-white"
+            class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+            Iniciar Sesión / Registrarse
+        </a>
+    </li>
+    } @else {
+    <li class="flex flex-col space-y-2">
+        <span class="text-white font-semibold">{{"Bienvenido, " + "!"}}</span>
+        <button (click)="requestLogout()"
+            class="bg-white text-black hover:bg-gray-200 font-medium py-2 px-4 rounded-lg transition">
+            Cerrar sesión
+        </button>
+    </li>
+    }
+</ul>
+}
+@if(showConfirmLogout()){
+<app-confirm-dialog title="¿Estás seguro que deseas cerrar la sesión?" message="Confirma o cancela para continuar."
+    (confirm)="confirmLogout()" (cancel)="cancelLogout()">
+</app-confirm-dialog>
+}

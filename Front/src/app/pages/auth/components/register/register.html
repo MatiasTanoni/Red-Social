@@ -1,0 +1,151 @@
+<form [formGroup]="formulario" (ngSubmit)="onRegister()"
+    class="bg-black border border-gray-800 rounded-2xl p-8 shadow-2xl w-full max-w-sm text-white mx-auto mb-6">
+    <div class="flex justify-center mb-6">
+        <img src="icono.png" alt="Icono" class="h-24 w-24 bg-white rounded-md p-1" />
+    </div>
+
+    <h1 class="text-3xl font-extrabold text-center mb-3 tracking-wide">
+        Registro
+    </h1>
+
+    <div class="mb-3">
+        <label for="name" class="block text-sm font-medium mb-1 text-gray-400">Nombre</label>
+        <input id="name" type="text" formControlName="name" placeholder="Tu nombre" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('name')?.touched &&
+            formulario.get('name')?.errors?.['required']) {
+            El nombre es obligatorio. } @if (formulario.get('name')?.touched &&
+            formulario.get('name')?.errors?.['minlength']) { Debe tener al menos 2
+            caracteres. } @if (formulario.get('name')?.touched &&
+            formulario.get('name')?.errors?.['maxlength']) { Debe ser menor a 26
+            caracteres. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="lastName" class="block text-sm font-medium mb-1 text-gray-400">Apellido</label>
+        <input id="lastName" type="text" formControlName="lastName" placeholder="Tu apellido" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('lastName')?.touched &&
+            formulario.get('lastName')?.errors?.['required']) { El apellido es
+            obligatorio. } @if (formulario.get('lastName')?.touched &&
+            formulario.get('lastName')?.errors?.['minlength']) { Debe tener al menos 2
+            caracteres. } @if (formulario.get('lastName')?.touched &&
+            formulario.get('lastName')?.errors?.['maxlength']) { Debe ser menor a 26
+            caracteres. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="username" class="block text-sm font-medium mb-1 text-gray-400">Nombre de usuario</label>
+        <input id="username" type="text" formControlName="username" placeholder="Tu usuario"
+            class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('username')?.touched &&
+            formulario.get('username')?.errors?.['required']) { El usuario es
+            obligatorio. } @if (formulario.get('username')?.touched &&
+            formulario.get('username')?.errors?.['minlength']) { Debe tener al menos 4
+            caracteres. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="block text-sm font-medium mb-1 text-gray-400">Correo electrónico</label>
+        <input id="email" type="email" formControlName="email" placeholder="ejemplo@correo.com" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('email')?.invalid && formulario.get('email')?.touched)
+            { Ingresa un correo válido. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="block text-sm font-medium mb-1 text-gray-400">Contraseña</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-6 text-red-700 text-sm mt-1">
+            @if (formulario.get('password')?.touched &&
+            formulario.get('password')?.errors?.['required']) { La contraseña es
+            obligatoria. } @if (formulario.get('password')?.touched &&
+            formulario.get('password')?.errors?.['minlength']) { Debe tener al menos 8
+            caracteres. } @if (formulario.get('password')?.touched &&
+            formulario.get('password')?.errors?.['pattern']) { Debe tener al menos 1
+            mayúscula y 1 número. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="confirmPassword" class="block text-sm font-medium mb-1 text-gray-400">Repetir Contraseña</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-6 text-red-700 text-sm mt-1">
+            @if (formulario.get('confirmPassword')?.touched &&
+            formulario.get('confirmPassword')?.errors?.['required']) { Confirma la
+            contraseña. } @if (formulario.touched &&
+            formulario.errors?.['passwordsMismatch']) { Las contraseñas no coinciden. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="birthDate" class="block text-sm font-medium mb-1 text-gray-400">Fecha de nacimiento</label>
+        <input id="birthDate" type="date" formControlName="birthDate" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('birthDate')?.touched &&
+            formulario.get('birthDate')?.errors?.['required']) { La fecha de nacimiento
+            es obligatoria. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="perfil" class="block text-sm font-medium mb-1 text-gray-400">Tipo de Perfil</label>
+        <select id="perfil" formControlName="perfil" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition">
+            <option value="usuario">Usuario</option>
+            <option value="administrador">Administrador</option>
+        </select>
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('perfil')?.touched &&
+            formulario.get('perfil')?.errors?.['required']) { El perfil es
+            obligatorio. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="block text-sm font-medium mb-1 text-gray-400">Descripción breve</label>
+        <textarea id="description" formControlName="description" placeholder="Descripción breve, max 50 caracteres"
+            rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition"></textarea>
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('description')?.touched &&
+            formulario.get('description')?.errors?.['required']) { La descripción es
+            obligatoria. }
+            @if (formulario.get('description')?.errors?.['maxlength']) { La descripción
+            es muy larga. }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="profileImage" class="block text-sm font-medium mb-1 text-gray-400">Imagen de perfil</label>
+        <input id="profileImage" type="file" formControlName="profileImage" (change)="onFileChange($event)"
+            accept="image/*" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
+            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition">
+        <div class="h-5 text-red-700 text-sm mt-1">
+            @if (formulario.get('profileImage')?.touched &&
+            formulario.get('profileImage')?.errors?.['required']) { La imagen de perfil es
+            obligatoria. }
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="formulario.invalid"
+        class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold mt-2 py-3 px-4 rounded-2xl shadow-lg transition-transform duration-200 transform hover:-translate-y-1 hover:shadow-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed">
+        Registrarse
+    </button>
+    @if (registerError) {
+    <div class="mt-4 text-center text-red-700 font-medium">
+        {{ registerError }}
+    </div>
+    }
+</form>
