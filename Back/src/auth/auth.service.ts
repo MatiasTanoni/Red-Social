@@ -27,7 +27,7 @@ export class AuthService {
     return newUser.save();
   }
 
-  async login(usernameOrEmail: string, password: string): Promise<{ id: Object; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean }> {
+  async login(usernameOrEmail: string, password: string): Promise<{ id: Object; username: string; perfil: string; name: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean }> {
     const user = await this.userModel.findOne({
       $or: [{ email: usernameOrEmail.toLocaleLowerCase() }, { username: usernameOrEmail.toLocaleLowerCase() }]
     }).exec();
@@ -56,9 +56,9 @@ export class AuthService {
       id: user._id,
       username: user.username,
       email: user.email,
-      firstName: user.firstName,
+      name: user.name,
       lastName: user.lastName,
-      isAdmin: user.isAdmin,
+      perfil: user.perfil,
       birthDate: user.birthDate,
       description: user.description || "",
       profileImage: user.profileImage || "",

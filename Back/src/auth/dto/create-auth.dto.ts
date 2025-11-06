@@ -13,7 +13,7 @@ export class CreateUserDto {
     @IsString()
     @MinLength(3)
     @MaxLength(15)
-    firstName: string;
+    name: string;
 
     @IsString()
     @MinLength(3)
@@ -47,7 +47,7 @@ export class CreateUserDto {
     profileImage?: string;
 
     @IsString()
-    isAdmin: string;
+    perfil: string;
 
     @IsDateString()
     createdAt: Date;

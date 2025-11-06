@@ -16,9 +16,12 @@ export class AuthController {
     @Body() createUserDto: CreateUserDto,
     // @UploadedFile() file: Express.Multer.File,
   ): Promise<any> {
+    console.log('BACK:', createUserDto);
     const existingEmail = await this.authService.findOneByEmail(createUserDto.email);
     const existingUsername = await this.authService.findOneByUsername(createUserDto.username);
 
+    console.log('EXISTING EMAIL', existingEmail);
+    console.log('EXISTING USERNAME', existingUsername); 
     if (existingEmail) {
       throw new BadRequestException('El email ya está registrado');
     }
