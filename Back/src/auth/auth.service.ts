@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { NotFoundException, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -47,11 +46,11 @@ export class AuthService {
       throw new UnauthorizedException('La contraseña no es correcta');
     }
 
-    const payload = {
-      sub: user._id,
-      username: user.username,
-      email: user.email,
-    };
+    // const payload = {
+    //   sub: user._id,
+    //   username: user.username,
+    //   email: user.email,
+    // };
 
     return {
       id: user._id,  
@@ -75,21 +74,5 @@ export class AuthService {
 
   async findOneByUsername(username: string): Promise<CreateUserDto | null> {
     return this.userModel.findOne({ username }).exec();
-  }
-
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
   }
 }
