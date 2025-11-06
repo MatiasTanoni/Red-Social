@@ -9,7 +9,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Auth } from '../../auth'; // servicio cambiarlo dsp con el back etc
+import { Auth } from '../../../../service/auth';
 
 @Component({
   selector: 'app-register',
@@ -88,51 +88,29 @@ export class Register implements OnInit {
       return;
     }
 
-    // Para enviar un archivo, debes usar FormData
-    const formData = new FormData();
     const formValue = this.formulario.value;
 
-    // Agregamos todos los valores del formulario al FormData
-    formData.append('name', formValue.name);
-    formData.append('lastName', formValue.lastName);
-    formData.append('username', formValue.username);
-    formData.append('email', formValue.email);
-    formData.append('password', formValue.password);
-    formData.append('birthDate', formValue.birthDate);
-    formData.append('description', formValue.description);
-    formData.append('perfil', formValue.perfil);
+    console.log('Enviando datos:', formValue);
 
-    // Agregamos el archivo si fue seleccionado
-    if (this.selectedFile) {
-      formData.append(
-        'profileImage',
-        this.selectedFile,
-        this.selectedFile.name
-      );
+    try {
+      // Tu servicio de 'auth' debería estar preparado para recibir FormData
+      const { success, message } = await this.auth.register(formValue);
+
+      if (success) {
+        // Redirigir al login, al home, etc.
+      } else {
+        console.error('Error en el registro:', message);
+        if (message === 'User already registered') {
+          this.registerError = 'El usuario ya está registrado.';
+        } else {
+          this.registerError = message;
+        }
+      }
+      this.cdr.detectChanges();
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      this.registerError = 'Ocurrió un error inesperado durante el registro.';
+      this.cdr.detectChanges();
     }
-
-    console.log('Enviando datos:', formData);
-
-    // --- Lógica de registro (descomentar y adaptar) ---
-    // try {
-    //   // Tu servicio de 'auth' debería estar preparado para recibir FormData
-    //   const { success, message } = await this.auth.register(formData);
-    //
-    //   if (success) {
-    //     // Redirigir al login, al home, etc.
-    //   } else {
-    //     console.error('Error en el registro:', message);
-    //     if (message === 'User already registered') {
-    //       this.registerError = 'El usuario ya está registrado.';
-    //     } else {
-    //       this.registerError = message;
-    //     }
-    //   }
-    //   this.cdr.detectChanges();
-    // } catch (error) {
-    //   console.error('Error en el registro:', error);
-    //   this.registerError = 'Ocurrió un error inesperado durante el registro.';
-    //   this.cdr.detectChanges();
-    // }
   }
 }
