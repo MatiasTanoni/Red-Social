@@ -62,7 +62,6 @@ export class Login {
 
       if (success) {
         this.loginError = null;
-        this.router.navigate(['/plublications']);
       } else {
         this.loginError = message;
       }
