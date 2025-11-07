@@ -28,18 +28,8 @@ export class Navbar {
         this.userData = null;
       }
     });
-
-
-    this.router.events.subscribe(() => {
-      const router = this.router.url;
-      this.blockNavegation =
-        router.startsWith('/ahorcado') ||
-        router.startsWith('/mayor-menor') ||
-        router.startsWith('/preguntados') ||
-        router.startsWith('/el-tesoro-escondido');
-    });
   }
-
+  
   async onLogout(): Promise<void> {
     const { success, message } = await this.auth.logout();
     if (success) {
@@ -61,4 +51,5 @@ export class Navbar {
   cancelLogout(): void {
     this.showConfirmLogout.set(false);
   }
+
 }

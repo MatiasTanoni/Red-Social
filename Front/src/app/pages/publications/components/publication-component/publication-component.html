@@ -1,0 +1,20 @@
+<div class="bg-gray-900 p-4 rounded-lg shadow mb-4">
+    <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-400">{{ publication.author }}</span>
+        <span class="text-xs text-gray-500">{{ publication.date | date:'short' }}</span>
+    </div>
+
+    <p class="text-white mb-3">{{ publication.content }}</p>
+
+    <div class="flex justify-between items-center">
+        <button (click)="onLike()" class="text-sm px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 transition">
+            {{ publication.iLike ? '💔 Quitar Me Gusta' : '❤️ Me Gusta' }} ({{ publication.likes }})
+        </button>
+
+        @if (itsOwnProfile) {
+        <button (click)="onDelete()" class="text-sm px-3 py-1 rounded bg-red-600 hover:bg-red-700 transition">
+            🗑 Eliminar
+        </button>
+        }
+    </div>
+</div>
