@@ -1,0 +1,23 @@
+<div class="flex-1 flex flex-col justify-center items-center px-4 text-center">
+    <div
+        class="flex flex-col items-center gap-5 text-white border-2 border-green-500 rounded-3xl px-10 py-8 w-[95%] max-w-2xl 
+               bg-gradient-to-tr from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-300 hover:scale-[1.02]">
+
+        <!-- Icono decorativo -->
+        <div class="bg-green-500/20 rounded-full p-4 flex items-center justify-center animate-bounce">
+            <span class="material-icons text-green-400 text-6xl">
+                check_circle
+            </span>
+        </div>
+
+        <!-- Título -->
+        <h2 class="text-4xl md:text-5xl font-extrabold text-green-400 tracking-wide drop-shadow-md">
+            {{ title }}
+        </h2>
+
+        <!-- Mensaje -->
+        <p class="text-gray-300 text-lg md:text-2xl leading-relaxed max-w-lg">
+            {{ message }}
+        </p>
+    </div>
+</div>
