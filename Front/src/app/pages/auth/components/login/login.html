@@ -44,6 +44,12 @@
 
     </div>
 
+    <!-- Error general -->
+    @if (loginError) {
+    <div class="mt-4 text-center text-red-700 font-medium pb-4">
+        {{ loginError }}
+    </div>
+    }
 
     <button type="submit" [disabled]="formularioLogin.invalid" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-2xl shadow-lg
     transition-transform duration-200 transform hover:-translate-y-1 hover:shadow-gray-700/50
@@ -52,12 +58,6 @@
     </button>
 
 
-    <!-- Error general -->
-    @if (loginError) {
-    <div class="mt-4 text-center text-red-700 font-medium">
-        {{ loginError }}
-    </div>
-    }
 
     <!-- Quick Users -->
     <div class="mt-6 space-y-3">
