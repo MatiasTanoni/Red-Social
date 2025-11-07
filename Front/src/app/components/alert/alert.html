@@ -1,35 +1,35 @@
 <div class="flex-1 flex flex-col justify-center items-center px-4 text-center">
-    <div class="flex flex-col items-center gap-5 text-white border-2 rounded-3xl px-10 py-8 w-[95%] max-w-2xl 
+  <div class="flex flex-col items-center gap-5 text-white border-2 rounded-3xl px-10 py-8 w-[95%] max-w-2xl 
            shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" [ngClass]="{
       'border-green-500': type === 'success',
       'border-red-500': type === 'error',
       'bg-gradient-to-tr from-green-700 via-green-800 to-green-900': type === 'success',
       'bg-gradient-to-tr from-red-700 via-red-800 to-red-900': type === 'error'
     }">
-        <!-- Icono decorativo -->
-        <div class="rounded-full p-4 flex items-center justify-center animate-bounce" [ngClass]="{
+    <!-- Icono decorativo -->
+    <div class="rounded-full p-4 flex items-center justify-center animate-bounce" [ngClass]="{
         'bg-green-500/20': type === 'success',
         'bg-red-500/20': type === 'error'
       }">
-            <span class="material-icons text-6xl" [ngClass]="{
+      <span class="material-icons text-6xl" [ngClass]="{
           'text-green-300': type === 'success',
           'text-red-300': type === 'error'
         }">
-                {{ type === 'success' ? 'check_circle' : 'cancel' }}
-            </span>
-        </div>
+        {{ type === 'success' ? 'check_circle' : 'cancel' }}
+      </span>
+    </div>
 
-        <!-- Título -->
-        <h2 class="text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-md" [ngClass]="{
+    <!-- Título -->
+    <h2 class="text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-md" [ngClass]="{
         'text-green-300': type === 'success',
         'text-red-300': type === 'error'
       }">
-            {{ title }}
-        </h2>
+      {{ title }}
+    </h2>
 
-        <!-- Mensaje -->
-        <p class="text-gray-100 text-lg md:text-2xl leading-relaxed max-w-lg">
-            {{ message }}
-        </p>
-    </div>
+    <!-- Mensaje -->
+    <p class="text-gray-100 text-lg md:text-2xl leading-relaxed max-w-lg">
+      {{ message }}
+    </p>
+  </div>
 </div>
