@@ -45,8 +45,8 @@ export class Auth {
       const response = this.http.post<any>(`${this.apiUrl}/login`, { usernameOrEmail, password });
       const user = await firstValueFrom(response);
       // Podés guardar el user si querés, pero sin navegar todavía
+      // this.user.set(user);
       this.user.set(user);
-      this.user.set(true);
       console.log('USUARIO LOGUEADO:', this.user());
       return { success: true, message: 'Login exitoso' };
     } catch (error: any) {
@@ -57,10 +57,11 @@ export class Auth {
     }
   }
 
-  logout(): void {
+  logout(): Promise<{ success: boolean; message: string }> {
     localStorage.clear();
     this.user.set(false);
     // this.currentUser.set(null);
     this.router.navigate(['/auth']);
+    return Promise.resolve({ success: true, message: 'Sesión cerrada exitosamente' });
   }
 }

@@ -33,7 +33,7 @@
             </a>
         </li>
 
-        @if (true) {
+        @if (!user) {
         <li>
             <a [routerLink]="!blockNavegation ? '/auth' : null"
                 routerLinkActive="border-b-2 border-white font-semibold text-white"
@@ -43,7 +43,7 @@
         </li>
         } @else {
         <li class="flex items-center space-x-5">
-            <span class="font-semibold">{{ "Bienvenido, " + "!"}}</span>
+            <span class="font-semibold">{{ "Bienvenido, "+ userData + "!"}}</span>
             <button (click)="requestLogout()"
                 class="bg-white text-black hover:bg-gray-200 font-medium py-1 px-3 rounded-lg transition cursor-pointer">
                 Cerrar sesión
@@ -70,7 +70,7 @@
         </a>
     </li>
 
-    @if (true) {
+    @if (!user) {
     <li>
         <a [routerLink]="!blockNavegation ? '/auth' : null"
             routerLinkActive="border-b-2 border-white font-semibold text-white"
@@ -80,7 +80,7 @@
     </li>
     } @else {
     <li class="flex flex-col space-y-2">
-        <span class="text-white font-semibold">{{"Bienvenido, " + "!"}}</span>
+        <span class="text-white font-semibold">{{"Bienvenido, " + userData + "!"}}</span>
         <button (click)="requestLogout()"
             class="bg-white text-black hover:bg-gray-200 font-medium py-2 px-4 rounded-lg transition">
             Cerrar sesión
