@@ -8,8 +8,8 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { Auth } from '../../auth'; // servicio cambiarlo dsp con el back etc
-
+import { Auth } from '../../../../service/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class Login {
     { email: 'guest@test.com', password: '123456', label: 'Invitado' },
   ];
 
-  constructor(private auth: Auth, private cdr: ChangeDetectorRef) {
+  constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router) {
   }
 
   ngOnInit() {
@@ -57,20 +57,21 @@ export class Login {
   }
 
   private async doLogin(email: string, password: string) {
-    // try {
-    //   const { success, message } = await this.auth.login(email, password);
+    try {
+      const { success, message } = await this.auth.login(email, password);
 
-    //   if (success) {
-    //     this.loginError = null;
-    //   } else {
-    //     this.loginError = message;
-    //   }
-    //   this.cdr.detectChanges();
+      if (success) {
+        this.loginError = null;
+        this.router.navigate(['/plublications']);
+      } else {
+        this.loginError = message;
+      }
+      this.cdr.detectChanges();
 
-    // } catch (error) {
-    //   this.loginError = "Ocurrió un error inesperado al iniciar sesión.";
-    //   console.error("Excepción en login:", error);
-    //   this.cdr.detectChanges();
-    // }
+    } catch (error) {
+      this.loginError = "Ocurrió un error inesperado al iniciar sesión.";
+      console.error("Excepción en login:", error);
+      this.cdr.detectChanges();
+    }
   }
 }
