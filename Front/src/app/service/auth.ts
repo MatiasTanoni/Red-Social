@@ -30,18 +30,17 @@ export class Auth {
   }
 
 
-  async login(usernameOrEmail: string, password: string): Promise<any> {
+  async login(usernameOrEmail: string, password: string): Promise<{ success: boolean; message: string }> {
     try {
       const response = this.http.post<any>(`${this.apiUrl}/login`, { usernameOrEmail, password });
       const user = await firstValueFrom(response);
-      // this.saveUserToLocalStorage(user);
-      // this.currentUser.set(user);
-      await this.router.navigate(['/plublications']);
-      return user;
+      // Podés guardar el user si querés, pero sin navegar todavía
+      return { success: true, message: 'Login exitoso' };
     } catch (error: any) {
       const errorMessage = error?.error?.message || 'Ocurrió un error inesperado';
       console.error('Error en AuthService.login:', errorMessage);
-      throw errorMessage;
+      return { success: false, message: errorMessage };
     }
   }
+
 }

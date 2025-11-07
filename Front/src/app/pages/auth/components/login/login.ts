@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { Auth } from '../../../../service/auth';
 import { Router } from '@angular/router';
-
+import { Alert } from '../../../../components/alert/alert';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,6 @@ export class Login {
   password: string = '';
   email: string = '';
   loginError: string | null = null;
-  succesMessage: boolean = false;
 
   quickUsers = [
     { email: 'admin@test.com', password: '123456', label: 'Admin' },
@@ -62,18 +61,19 @@ export class Login {
       const { success, message } = await this.auth.login(email, password);
 
       if (success) {
-        this.succesMessage = true;
         this.loginError = null;
-      } else {
-        
-        this.loginError = message;
-      }
-      this.cdr.detectChanges();
+        this.cdr.detectChanges();
 
+        this.router.navigate(['/publications']);
+      } else {
+        this.loginError = message;
+        this.cdr.detectChanges();
+      }
     } catch (error) {
       this.loginError = "Ocurrió un error inesperado al iniciar sesión.";
       console.error("Excepción en login:", error);
       this.cdr.detectChanges();
     }
   }
+
 }
