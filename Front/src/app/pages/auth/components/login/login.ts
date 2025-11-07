@@ -23,6 +23,7 @@ export class Login {
   password: string = '';
   email: string = '';
   loginError: string | null = null;
+  succesMessage: boolean = false;
 
   quickUsers = [
     { email: 'admin@test.com', password: '123456', label: 'Admin' },
@@ -61,8 +62,10 @@ export class Login {
       const { success, message } = await this.auth.login(email, password);
 
       if (success) {
+        this.succesMessage = true;
         this.loginError = null;
       } else {
+        
         this.loginError = message;
       }
       this.cdr.detectChanges();
