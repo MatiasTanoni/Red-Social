@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environments } from '../environments/environment';
 
 export interface Publication {
   id: number;
@@ -13,7 +14,7 @@ export interface Publication {
 
 @Injectable({ providedIn: 'root' })
 export class PublicationsService {
-  private apiUrl = 'http://localhost:3000/publicaciones'; // Cambiá tu endpoint
+  private apiUrl = environments.apiUrl;
 
   constructor(private http: HttpClient) { }
 

@@ -24,10 +24,12 @@ export class Publications implements OnInit {
   }
 
   uploadPublications() {
+    console.log("hola")
     this.loading = true;
     this.pubService.getPublications(this.page, this.orderBy).subscribe({
       next: (data) => {
         this.publications = data;
+        console.log("holaa " + this.publications)
         this.loading = false;
       },
       error: () => (this.loading = false)
