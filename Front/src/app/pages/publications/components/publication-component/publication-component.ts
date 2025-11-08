@@ -3,7 +3,7 @@ import { Publication } from '../../../../service/publications-service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-publicacion',
+  selector: 'app-publication',
   templateUrl: './publication-component.html',
   styleUrls: ['./publication-component.css'],
   imports: [DatePipe]

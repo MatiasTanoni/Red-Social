@@ -12,7 +12,7 @@ export interface Publication {
 }
 
 @Injectable({ providedIn: 'root' })
-export class PublicacionesService {
+export class PublicationsService {
   private apiUrl = 'http://localhost:3000/publicaciones'; // Cambiá tu endpoint
 
   constructor(private http: HttpClient) { }
@@ -29,4 +29,3 @@ export class PublicacionesService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
- 
