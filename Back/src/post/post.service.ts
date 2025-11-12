@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './schemas/post.schema';
@@ -11,8 +11,39 @@ export class PostService {
     @InjectModel('Post') private postModel: Model<Post>,
   ) { }
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  async createPost(data: {
+    idUser: string;
+    firstName: string;
+    lastName: string;
+    profileImage: string;
+    username: string;
+    content: string;
+    image?: string;
+  }) {
+    try {
+      if (!data.idUser) {
+        throw new BadRequestException('El id del usuario es obligatorio');
+      }
+
+      const newPost = new this.postModel({
+        idUser: data.idUser,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        profileImage: data.profileImage,
+        username: data.username,
+        content: data.content,
+        image: data.image,
+        likes: [],
+        comments: [],
+        date: new Date(),
+        show: true,
+      });
+
+      return await newPost.save();
+    } catch (error) {
+      console.error('Error al crear el post:', error);
+      throw new InternalServerErrorException('No se pudo crear el post');
+    }
   }
 
   async findAll(isAdmin: string): Promise<Post[]> {
