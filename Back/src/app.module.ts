@@ -4,15 +4,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { PostModule } from './post/post.module';
+import { PostsModule } from './post/post.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, 
+      isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.MONGO_URI || ''), 
-    AuthModule, PostModule,
+    MongooseModule.forRoot(process.env.MONGO_URI || ''),
+    AuthModule, PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

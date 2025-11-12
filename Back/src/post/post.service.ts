@@ -1,9 +1,16 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './schemas/post.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class PostService {
+  constructor(
+    @InjectModel('Post') private postModel: Model<Post>,
+  ) { }
+
   create(createPostDto: CreatePostDto) {
     return 'This action adds a new post';
   }

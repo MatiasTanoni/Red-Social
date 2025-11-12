@@ -14,7 +14,7 @@ export class PostController {
 
   @Get('/all')
   findAll(@Query('isAdmin') isAdmin: string) {
-    return this.postService.findAll();
+    return this.postService.findAll(isAdmin);
   }
 
   @Get(':id')
