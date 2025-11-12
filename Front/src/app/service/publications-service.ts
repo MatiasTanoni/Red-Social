@@ -22,6 +22,10 @@ export class PublicationsService {
     return this.http.get<Publication[]>(`${this.apiUrl}?page=${page}&orderBy=${orderBy}`);
   }
 
+  createPost(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/create', formData);
+  }
+
   toggleLike(id: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/like`, {});
   }

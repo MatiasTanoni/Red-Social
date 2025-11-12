@@ -18,7 +18,7 @@ export class PostService {
     profileImage: string;
     username: string;
     content: string;
-    image?: string;
+    // image?: string;
   }) {
     try {
       if (!data.idUser) {
@@ -32,7 +32,7 @@ export class PostService {
         profileImage: data.profileImage,
         username: data.username,
         content: data.content,
-        image: data.image,
+        // image: data.image,
         likes: [],
         comments: [],
         date: new Date(),

@@ -16,6 +16,12 @@ export class Publications implements OnInit {
   loading = false;
 
   ActualUser = 'Matias'; // o traelo del servicio de auth
+  idUser = localStorage.getItem('id') || '';
+  username = localStorage.getItem('username') || '';
+  firstName = localStorage.getItem('firstName') || '';
+  lastName = localStorage.getItem('lastName') || '';
+  profileImage = localStorage.getItem('profileImage') || '';
+  text: string = '';
 
   constructor(private pubService: PublicationsService) { }
 
@@ -51,6 +57,29 @@ export class Publications implements OnInit {
     if (this.page > 1) {
       this.page--;
       this.uploadPublications();
+    }
+  }
+
+  async post(): Promise<void> {
+    const formData = new FormData();
+    formData.append('content', this.text);
+    formData.append('username', this.username);
+    formData.append('profileImage', this.profileImage);
+    formData.append('firstName', this.firstName);
+    formData.append('lastName', this.lastName);
+    formData.append('idUser', this.idUser);
+
+    // if (this.imageFile) {
+    //   formData.append('image', this.imageFile, this.imageFile.name);
+    // }
+
+    try {
+      const response = await this.pubService.createPost(formData);
+      this.text = '';
+      // this.imageFile = null;
+      // this.imagePreview = null;
+    } catch (error) {
+      console.error('Error creando post:', error);
     }
   }
 

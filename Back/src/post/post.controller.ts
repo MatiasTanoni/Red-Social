@@ -14,7 +14,7 @@ export class PostController {
     @Body() createPostDto: CreatePostDto,
   ) {
     try {
-      let image: string | undefined;
+      // let image: string | undefined;
 
       if (!createPostDto.idUser) {
         throw new BadRequestException('El id del usuario es obligatorio');
@@ -32,7 +32,7 @@ export class PostController {
 
       const newPost = await this.postService.createPost({
         ...createPostDto,
-        image,
+        // image,
       });
 
       return newPost;
