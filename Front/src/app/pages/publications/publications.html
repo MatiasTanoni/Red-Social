@@ -3,7 +3,7 @@
         <img src="" class="w-12 h-12 rounded-full object-cover" alt="Avatar" />
 
         <div class="flex-1">
-            <textarea [(ngModel)]="Text" placeholder="¿Qué está pasando?" maxlength="140"
+            <textarea [(ngModel)]="text" placeholder="¿Qué está pasando?" maxlength="140"
                 class="bg-transparent w-full text-white resize-none outline-none text-base placeholder-gray-400"
                 rows="3"></textarea>
 
@@ -22,13 +22,13 @@
             <div class="flex items-center justify-end gap-2">
 
                 <label class="cursor-pointer mt-2">
-                    <i class="material-icons hover:text-blue-500 text-white transition">image</i>
-                    <input type="file" (change)="onImageSelected($event)" hidden accept="image/*" />
+                    <!-- <i class="material-icons hover:text-blue-500 text-white transition">image</i> -->
+                    <!-- <input type="file" (change)="onImageSelected($event)" hidden accept="image/*" /> -->
                 </label>
 
                 <button
                     class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full font-medium disabled:opacity-50 transition cursor-pointer"
-                    [disabled]="!Text && imageFile === null" (click)="post()">
+                    [disabled]="!text === null" (click)="post()">
                     Publicar
                 </button>
 

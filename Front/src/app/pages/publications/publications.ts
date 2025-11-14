@@ -90,4 +90,10 @@ export class Publications implements OnInit {
   manageDelete(id: number) {
     this.pubService.deletePublication(id).subscribe(() => this.uploadPublications());
   }
+
+  removeImage() {
+    console.log("removing image");
+    // this.imagePreview = null;
+    // this.imageFile = null;
+  }
 }
