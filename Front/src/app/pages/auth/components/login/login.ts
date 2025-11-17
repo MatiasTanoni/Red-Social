@@ -25,9 +25,9 @@ export class Login {
   loginError: string | null = null;
 
   quickUsers = [
-    { email: 'admin@test.com', password: '123456', label: 'Admin' },
-    { email: 'user@test.com', password: '123456', label: 'Usuario' },
-    { email: 'guest@test.com', password: '123456', label: 'Invitado' },
+    { email: 'admin@test.com', password: '12345678A', label: 'Admin' },
+    { email: 'user@test.com', password: '12345678A', label: 'Usuario' },
+    { email: 'guest@test.com', password: '12345678A', label: 'Invitado' },
   ];
 
   constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router) {
