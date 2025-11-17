@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environments } from '../environments/environment';
@@ -14,7 +14,7 @@ export interface Publication {
 
 @Injectable({ providedIn: 'root' })
 export class PublicationsService {
-  private apiUrl = environments.apiUrl;
+  private apiUrl = environments.apiUrl + '/posts';
 
   constructor(private http: HttpClient) { }
 
@@ -22,8 +22,9 @@ export class PublicationsService {
     return this.http.get<Publication[]>(`${this.apiUrl}?page=${page}&orderBy=${orderBy}`);
   }
 
-  createPost(formData: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/create', formData);
+  createPost(body: any): Observable<any> {
+    console.log("FORM DATA en servicio:", body);
+    return this.http.post<any>(this.apiUrl + '/create', body);
   }
 
   toggleLike(id: number): Observable<any> {

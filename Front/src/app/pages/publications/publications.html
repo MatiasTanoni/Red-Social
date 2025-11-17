@@ -49,8 +49,7 @@
     }
 
     @for (p of publications; track $index) {
-    <app-publication [publication]="p" [itsOwnProfile]="p.author === ActualUser" (like)="manageLike($event)"
-        (delete)="manageDelete($event)">
+    <app-publication [publication]="p" (like)="manageLike($event)" (delete)="manageDelete($event)">
     </app-publication>
     }
 

@@ -12,9 +12,11 @@ export class PostController {
   async createPost(
     // @UploadedFile() file: Express.Multer.File,
     @Body() createPostDto: CreatePostDto,
+
   ) {
     try {
       // let image: string | undefined;
+      console.log("DTO recibido:", createPostDto);
 
       if (!createPostDto.idUser) {
         throw new BadRequestException('El id del usuario es obligatorio');

@@ -19,7 +19,6 @@ export class Publications implements OnInit {
 
   user = signal<any | boolean>(false);
 
-  ActualUser = 'Matias'; // o traelo del servicio de auth
   idUser = localStorage.getItem('id') || '';
   username: any;
   firstName: any;
@@ -33,11 +32,11 @@ export class Publications implements OnInit {
     this.uploadPublications();
     this.user.set(this.auth.getUser());
     this.username = this.user() && typeof this.user() === 'object' ? this.user().username : '';
-    this.firstName = this.user() && typeof this.user() === 'object' ? this.user().firstName : '';
+    this.firstName = this.user() && typeof this.user() === 'object' ? this.user().name : '';
     this.lastName = this.user() && typeof this.user() === 'object' ? this.user().lastName : '';
     this.profileImage = this.user() && typeof this.user() === 'object' ? this.user().profileImage : '';
     this.idUser = this.user() && typeof this.user() === 'object' ? this.user().id : '';
-    console.log("username", this.username);
+    console.log("firstname", this.firstName);
   }
 
   uploadPublications() {
@@ -70,21 +69,28 @@ export class Publications implements OnInit {
   }
 
   async post(): Promise<void> {
-    const formData = new FormData();
-    formData.append('content', this.text);
-    // formData.append('username', this.username);
-    formData.append('profileImage', this.profileImage);
-    formData.append('firstName', this.firstName);
-    formData.append('lastName', this.lastName);
-    formData.append('idUser', this.idUser);
+    // console.log("texto", this.text);
+    // console.log("username", this.username);
+    // console.log("profileImage", this.profileImage);
+    // console.log("firstName", this.firstName);
+    // console.log("lastName", this.lastName);
+    // console.log("idUser", this.idUser);
 
-    console.log("Creating post with data:", formData);
+    const body = {
+      content: this.text,
+      username: this.username,
+      profileImage: this.profileImage,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      idUser: this.idUser
+    };
+
     // if (this.imageFile) {
     //   formData.append('image', this.imageFile, this.imageFile.name);
     // }
 
     try {
-      const response = await this.pubService.createPost(formData);
+      const response = await this.pubService.createPost(body);
       this.text = '';
       // this.imageFile = null;
       // this.imagePreview = null;
