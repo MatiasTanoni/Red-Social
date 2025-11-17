@@ -23,13 +23,15 @@ export class Navbar {
       if (u) { // si es true o un objeto
         this.user = u;
         this.userData = typeof u === 'object' ? u.name : 'Usuario';
+        this.blockNavegation = false;
       } else {
         this.user = null;
         this.userData = null;
+        this.blockNavegation = true;
       }
     });
   }
-  
+
   async onLogout(): Promise<void> {
     const { success, message } = await this.auth.logout();
     if (success) {
