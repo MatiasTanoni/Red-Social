@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PublicationsService, Publication } from '../../service/publications-service';
 import { PublicationComponent } from './components/publication-component/publication-component';
 import { FormsModule } from '@angular/forms';
+import { signal } from '@angular/core';
+import { Auth } from '../../service/auth';
 
 @Component({
   selector: 'app-publications',
@@ -15,27 +17,34 @@ export class Publications implements OnInit {
   orderBy: 'fecha' | 'likes' = 'fecha';
   loading = false;
 
+  user = signal<any | boolean>(false);
+
   ActualUser = 'Matias'; // o traelo del servicio de auth
   idUser = localStorage.getItem('id') || '';
-  username = localStorage.getItem('username') || '';
-  firstName = localStorage.getItem('firstName') || '';
-  lastName = localStorage.getItem('lastName') || '';
-  profileImage = localStorage.getItem('profileImage') || '';
+  username: any;
+  firstName: any;
+  lastName: any;
+  profileImage: any;
   text: string = '';
 
-  constructor(private pubService: PublicationsService) { }
+  constructor(private pubService: PublicationsService, private auth: Auth) { }
 
   ngOnInit() {
     this.uploadPublications();
+    this.user.set(this.auth.getUser());
+    this.username = this.user() && typeof this.user() === 'object' ? this.user().username : '';
+    this.firstName = this.user() && typeof this.user() === 'object' ? this.user().firstName : '';
+    this.lastName = this.user() && typeof this.user() === 'object' ? this.user().lastName : '';
+    this.profileImage = this.user() && typeof this.user() === 'object' ? this.user().profileImage : '';
+    this.idUser = this.user() && typeof this.user() === 'object' ? this.user().id : '';
+    console.log("username", this.username);
   }
 
   uploadPublications() {
-    console.log("hola")
     this.loading = true;
     this.pubService.getPublications(this.page, this.orderBy).subscribe({
       next: (data) => {
         this.publications = data;
-        console.log("holaa " + this.publications)
         this.loading = false;
       },
       error: () => (this.loading = false)
@@ -63,12 +72,13 @@ export class Publications implements OnInit {
   async post(): Promise<void> {
     const formData = new FormData();
     formData.append('content', this.text);
-    formData.append('username', this.username);
+    // formData.append('username', this.username);
     formData.append('profileImage', this.profileImage);
     formData.append('firstName', this.firstName);
     formData.append('lastName', this.lastName);
     formData.append('idUser', this.idUser);
 
+    console.log("Creating post with data:", formData);
     // if (this.imageFile) {
     //   formData.append('image', this.imageFile, this.imageFile.name);
     // }
