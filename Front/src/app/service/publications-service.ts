@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environments } from '../environments/environment';
+import { environments } from '../../environments/environment';
 
 export interface Publication {
   id: number;

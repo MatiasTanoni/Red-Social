@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environments } from '../environments/environment';
+import { environments } from '../../environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { signal } from '@angular/core';
 
