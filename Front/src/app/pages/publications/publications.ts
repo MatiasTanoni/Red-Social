@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // <--- 1. Importar esto
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PublicationsService, Publication } from '../../service/publications-service';
 import { PublicationComponent } from './components/publication-component/publication-component';
 import { FormsModule } from '@angular/forms';
@@ -9,33 +9,34 @@ import { Auth } from '../../service/auth';
   selector: 'app-publications',
   templateUrl: './publications.html',
   styleUrls: ['./publications.css'],
-  imports: [PublicationComponent, FormsModule]
+  imports: [PublicationComponent, FormsModule] // Asegúrate de que sea Standalone o esté en un módulo
 })
 export class Publications implements OnInit {
   publications: Publication[] = [];
-  page = 1;
-  orderBy: 'fecha' | 'likes' = 'fecha';
-  loading = false;
 
+  // CONFIGURACIÓN DE PAGINACIÓN
+  page = 1;
+  limit = 3; // <--- AQUÍ DEFINIMOS QUE SOLO SEAN 3
+  orderBy: 'fecha' | 'likes' = 'fecha';
+
+  loading = false;
   user = signal<any | boolean>(false);
 
-  // OJO: Mover el localStorage dentro de ngOnInit es más seguro para evitar errores si usas SSR
   idUser = '';
   username: any;
   firstName: any;
   lastName: any;
+  profileImage: any; // Agregué esto para que no de error en el HTML
   text: string = '';
 
   constructor(
     private pubService: PublicationsService,
     private auth: Auth,
-    private cdr: ChangeDetectorRef // <--- 2. Inyectar aquí
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    console.log("🟢 Iniciando Componente..."); // Debug para confirmar que entra aquí
-
-    // Inicializamos datos del usuario
+    // 1. Auth
     this.idUser = localStorage.getItem('id') || '';
     this.user.set(this.auth.getUser());
 
@@ -44,30 +45,37 @@ export class Publications implements OnInit {
       this.firstName = this.user().name;
       this.lastName = this.user().lastName;
       this.idUser = this.user().id;
+      // this.profileImage = this.user().profileImage; 
     }
 
+    // 2. Cargar publicaciones
     this.page = 1;
-
-    // Llamada inicial
     this.uploadPublications();
   }
 
   uploadPublications() {
     this.loading = true;
 
-    this.pubService.getPublications(this.page, this.orderBy).subscribe({
+    // IMPORTANTE: Tu servicio debe aceptar el tercer argumento 'limit'.
+    // Si tu servicio actual es getPublications(page, order), deberás modificarlo
+    // en el archivo del servicio para que sea: getPublications(page, order, limit)
+    // y pasar ese limit al backend.
+    this.pubService.getPublications(this.page, this.orderBy /*, this.limit */).subscribe({
       next: (data) => {
-        console.log('📦 Datos recibidos:', data.length);
-        this.publications = data;
-        this.loading = false;
+        // SI EL BACKEND NO SOPORTA EL LÍMITE:
+        // Descomenta la siguiente línea para cortar el array manualmente en el frontend (no es ideal para performance, pero funciona visualmente)
+        this.publications = data.slice(0, 3);
 
-        // <--- 3. FORZAR ACTUALIZACIÓN DE LA VISTA
+        // SI EL BACKEND SOPORTA LÍMITE:
+        // this.publications = data;
+
+        this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('❌ Error:', err);
+        console.error(err);
         this.loading = false;
-        this.cdr.detectChanges(); // También forzar en error para quitar el loading
+        this.cdr.detectChanges();
       }
     });
   }
@@ -102,7 +110,7 @@ export class Publications implements OnInit {
     }).subscribe({
       next: (res) => {
         this.text = '';
-        this.page = 1; // Volver a la primera página para ver el nuevo post
+        this.page = 1;
         this.uploadPublications();
       },
       error: (err) => console.error(err)
@@ -118,6 +126,6 @@ export class Publications implements OnInit {
   }
 
   removeImage() {
-    // lógica de imagen
+    // lógica futura
   }
 }
