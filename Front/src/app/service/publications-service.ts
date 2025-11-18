@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environments } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 export interface Publication {
   id: number;
@@ -14,7 +14,7 @@ export interface Publication {
 
 @Injectable({ providedIn: 'root' })
 export class PublicationsService {
-  private apiUrl = environments.apiUrl + '/posts';
+  private apiUrl = environment.apiUrl + '/posts';
 
   constructor(private http: HttpClient) { }
 
