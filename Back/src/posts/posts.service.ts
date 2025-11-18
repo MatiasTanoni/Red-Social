@@ -21,6 +21,8 @@ export class PostsService {
         // image?: string;
     }) {
         try {
+
+            console.log('createPostDto recibido en el servicio:', data);
             if (!data.idUser) {
                 throw new BadRequestException('El id del usuario es obligatorio');
             }
@@ -33,12 +35,12 @@ export class PostsService {
                 username: data.username,
                 content: data.content,
                 // image: data.image,
-                likes: [],
-                comments: [],
+                // likes: [],
+                // comments: [],
                 date: new Date(),
                 show: true,
             });
-
+            console.log('newPost', newPost);
             return await newPost.save();
         } catch (error) {
             console.error('Error al crear el post:', error);

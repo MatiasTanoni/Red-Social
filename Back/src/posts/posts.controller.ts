@@ -31,11 +31,11 @@ export class PostsController {
     ) {
         try {
             console.log('createPostDto recibido en el controlador:', data);
-            let image: string | undefined;
+            // let image: string | undefined;
 
-            // if (!createPostDto.idUser) {
-            //     throw new BadRequestException('El id del usuario es obligatorio');
-            // }
+            if (!data.idUser) {
+                throw new BadRequestException('El id del usuario es obligatorio');
+            }
 
             // if (file) {
             //     try {
@@ -47,10 +47,10 @@ export class PostsController {
             //     }
             // }
 
-            // const newPost = await this.postsService.createPost({
-            //     ...createPostDto,
-            //     // image,
-            // });
+            const newPost = await this.postsService.createPost({
+                ...data,
+                // image,
+            });
 
             return data;
 

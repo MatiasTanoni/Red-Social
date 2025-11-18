@@ -10,52 +10,52 @@ export class Post extends Document {
     @Prop() profileImage: string;
     @Prop({ required: true }) username: string;
     @Prop() content: string;
-    @Prop() image?: string;
+    // @Prop() image?: string;
 
-    @Prop({
-        type: [{
-            idUser: String,
-            username: String,
-            firstName: String,
-            lastName: String,
-            profileImage: String
-        }],
-        default: [],
-    })
-    likes: {
-        idUser: string;
-        username: string;
-        firstName: string;
-        lastName: string;
-        profileImage: string;
-    }[];
+    // @Prop({
+    //     type: [{
+    //         idUser: String,
+    //         username: String,
+    //         firstName: String,
+    //         lastName: String,
+    //         profileImage: String
+    //     }],
+    //     default: [],
+    // })
+    // likes: {
+    //     idUser: string;
+    //     username: string;
+    //     firstName: string;
+    //     lastName: string;
+    //     profileImage: string;
+    // }[];
 
-    @Prop({
-        type: [{
-            idUser: String,
-            username: String,
-            firstName: String,
-            lastName: String,
-            profileImage: String,
-            content: String,
-            edited: Boolean,
-            show: Boolean,
-            date: Date
-        }],
-        default: [],
-    })
-    comments: {
-        _id: any;
-        idUser: string;
-        username: string;
-        firstName: string;
-        lastName: string;
-        profileImage: string;
-        content: string;
-        edited: boolean;
-        show: boolean;
-        date: Date;
-    }[];
+    // @Prop({
+    //     type: [{
+    //         idUser: String,
+    //         username: String,
+    //         firstName: String,
+    //         lastName: String,
+    //         profileImage: String,
+    //         content: String,
+    //         edited: Boolean,
+    //         show: Boolean,
+    //         date: Date
+    //     }],
+    //     default: [],
+    // })
+    // comments: {
+    //     _id: any;
+    //     idUser: string;
+    //     username: string;
+    //     firstName: string;
+    //     lastName: string;
+    //     profileImage: string;
+    //     content: string;
+    //     edited: boolean;
+    //     show: boolean;
+    //     date: Date;
+    // }[];
 
     @Prop({ default: Date.now })
     date: Date;
