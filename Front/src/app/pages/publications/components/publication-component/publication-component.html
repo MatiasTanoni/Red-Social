@@ -1,7 +1,9 @@
 <div class="bg-gray-900 p-4 rounded-lg shadow mb-4">
     <div class="flex justify-between items-center mb-2">
-        <span class="text-sm text-gray-400">{{ publication.author }}</span>
-        <span class="text-xs text-gray-500">{{ publication.date | date:'short' }}</span>
+        <span class="text-sm text-gray-400">{{ publication.username }}</span>
+        <span class="text-xs text-gray-500">
+            {{ publication.date | date:'dd/MM/yyyy' }}
+        </span>
     </div>
 
     <p class="text-white mb-3">{{ publication.content }}</p>

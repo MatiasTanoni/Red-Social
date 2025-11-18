@@ -5,7 +5,7 @@ import { environments } from '../environments/environment';
 
 export interface Publication {
   id: number;
-  author: string;
+  username: string;
   content: string;
   date: Date;
   likes: number;
