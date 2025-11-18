@@ -25,7 +25,7 @@ export class PublicationsService {
   }
 
   getPostsByUser(userId: string) {
-    return this.http.get(`${this.apiUrl}/user/${userId}`);
+    return this.http.get<Publication[]>(`${this.apiUrl}/user/${userId}`);
   }
 
 
