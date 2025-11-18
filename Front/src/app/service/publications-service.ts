@@ -25,6 +25,7 @@ export class PublicationsService {
   }
 
   getPostsByUser(userId: string) {
+    console.log("🔵 Obteniendo publicaciones para el usuario con ID:", userId);
     return this.http.get<Publication[]>(`${this.apiUrl}/user/${userId}`);
   }
 

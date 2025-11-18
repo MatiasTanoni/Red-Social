@@ -75,6 +75,7 @@ export class PostsController {
 
     @Get('user/:id')
     async getByUser(@Param('id') userId: string) {
+        console.log('getByUser', userId);
         return this.postsService.findByUser(userId);
     }
 

@@ -1,13 +1,18 @@
-<div class="p-4 rounded-lg shadow mb-4 h-40 overflow-hidden flex flex-col justify-between">
-
-    <div class="flex justify-between items-center mb-2">
-        <span class="text-sm text-gray-400">{{ publications.username }}</span>
-        <span class="text-xs text-gray-500">
-            {{ publications.date | date:'dd/MM/yyyy HH:mm' }}
-        </span>
+<div class="min-h-[200px]">
+    @if (loading) {
+    <div class="flex justify-center py-8">
+        <app-spinner></app-spinner>
     </div>
-
-    <p class="text-white mb-3 overflow-hidden text-ellipsis line-clamp-3 break-words">
-        {{ publications.content }}
-    </p>
+    } @else {
+    @for (p of publications; track p.id || $index) {
+    <div class="mb-4 rounded-xl bg-gray-900/60 border-2 border-gray-700 shadow-md hover:bg-gray-900/80 transition">
+        <app-publication [publication]="p">
+        </app-publication>
+    </div>
+    } @empty {
+    <div class="text-center text-gray-500 py-10 bg-gray-900/40 rounded-xl border border-gray-800">
+        No hay publicaciones aún.
+    </div>
+    }
+    }
 </div>

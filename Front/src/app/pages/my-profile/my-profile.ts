@@ -1,15 +1,26 @@
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
-import { PublicationsService, Publication } from '../../service/publications-service';
+import { PublicationsService } from '../../service/publications-service';
 import { Auth } from '../../service/auth';
-import { DatePipe } from '@angular/common';
+import { PublicationComponent } from '../publications/components/publication-component/publication-component';
+import { Spinner } from '../../components/spinner/spinner';
+
+export interface Publication {
+  id: number;
+  username: string;
+  content: string;
+  date: Date;
+  likes: number;
+  iLike: boolean;
+}
 
 @Component({
   selector: 'app-my-profile',
-  imports: [DatePipe],
+  imports: [PublicationComponent, Spinner],
   templateUrl: './my-profile.html',
   styleUrl: './my-profile.css',
 })
 export class MyProfile {
+
   user = signal<any | boolean>(false);
   idUser = '';
   username: any;
@@ -43,9 +54,14 @@ export class MyProfile {
 
   uploadPublicationsByUser() {
     this.loading = true;
-    this.pubService.getPostsByUser(this.user().id).subscribe({
+    this.pubService.getPostsByUser(this.idUser).subscribe({
       next: (data) => {
-        this.publications = data as any[];
+        this.publications = data;
+        console.log("Publicaciones del usuario:", this.publications);
+        this.publications.forEach(element => {
+
+          console.log("username", element.username);
+        });
         this.loading = false;
         this.cdr.detectChanges();
       },

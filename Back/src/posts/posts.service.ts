@@ -78,10 +78,22 @@ export class PostsService {
     }
 
     async findByUser(userId: string) {
-        return await this.postModel
-            .find({ userId })
-            .sort({ date: -1 })
-            .lean();
+        try {
+            console.log('Buscando posts de:', userId);
+
+            const posts = await this.postModel
+                .find({ idUser: userId, show: true })
+                .sort({ date: -1 })
+                .lean();
+
+            console.log('Posts encontrados:', posts.length);
+
+            return posts;
+
+        } catch (error) {
+            console.error('Error en findByUser:', error);
+            throw new InternalServerErrorException('No se pudieron obtener los posts');
+        }
     }
 
 }
