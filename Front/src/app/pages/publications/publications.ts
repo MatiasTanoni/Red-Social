@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // <--- 1. Importar esto
 import { PublicationsService, Publication } from '../../service/publications-service';
 import { PublicationComponent } from './components/publication-component/publication-component';
 import { FormsModule } from '@angular/forms';
@@ -19,34 +19,56 @@ export class Publications implements OnInit {
 
   user = signal<any | boolean>(false);
 
-  idUser = localStorage.getItem('id') || '';
+  // OJO: Mover el localStorage dentro de ngOnInit es más seguro para evitar errores si usas SSR
+  idUser = '';
   username: any;
   firstName: any;
   lastName: any;
-  profileImage: any;
   text: string = '';
 
-  constructor(private pubService: PublicationsService, private auth: Auth) { }
+  constructor(
+    private pubService: PublicationsService,
+    private auth: Auth,
+    private cdr: ChangeDetectorRef // <--- 2. Inyectar aquí
+  ) { }
 
   ngOnInit() {
-    this.uploadPublications();
+    console.log("🟢 Iniciando Componente..."); // Debug para confirmar que entra aquí
+
+    // Inicializamos datos del usuario
+    this.idUser = localStorage.getItem('id') || '';
     this.user.set(this.auth.getUser());
-    this.username = this.user() && typeof this.user() === 'object' ? this.user().username : '';
-    this.firstName = this.user() && typeof this.user() === 'object' ? this.user().name : '';
-    this.lastName = this.user() && typeof this.user() === 'object' ? this.user().lastName : '';
-    // this.profileImage = this.user() && typeof this.user() === 'object' ? this.user().profileImage : '';
-    this.idUser = this.user() && typeof this.user() === 'object' ? this.user().id : '';
-    console.log("firstname", this.firstName);
+
+    if (this.user() && typeof this.user() === 'object') {
+      this.username = this.user().username;
+      this.firstName = this.user().name;
+      this.lastName = this.user().lastName;
+      this.idUser = this.user().id;
+    }
+
+    this.page = 1;
+
+    // Llamada inicial
+    this.uploadPublications();
   }
 
   uploadPublications() {
     this.loading = true;
+
     this.pubService.getPublications(this.page, this.orderBy).subscribe({
       next: (data) => {
+        console.log('📦 Datos recibidos:', data.length);
         this.publications = data;
         this.loading = false;
+
+        // <--- 3. FORZAR ACTUALIZACIÓN DE LA VISTA
+        this.cdr.detectChanges();
       },
-      error: () => (this.loading = false)
+      error: (err) => {
+        console.error('❌ Error:', err);
+        this.loading = false;
+        this.cdr.detectChanges(); // También forzar en error para quitar el loading
+      }
     });
   }
 
@@ -68,48 +90,23 @@ export class Publications implements OnInit {
     }
   }
 
-  async post(): Promise<void> {
-    // console.log("texto", this.text);
-    // console.log("username", this.username);
-    // console.log("profileImage", this.profileImage);
-    // console.log("firstName", this.firstName);
-    // console.log("lastName", this.lastName);
-    // console.log("idUser", this.idUser);
+  post(): void {
+    if (!this.text || !this.text.trim()) return;
 
-    const data = {
-      content: this.text,
-      username: this.username,
-      // profileImage: this.profileImage,
+    this.pubService.createPost({
+      idUser: this.idUser,
       firstName: this.firstName,
       lastName: this.lastName,
-      idUser: this.idUser
-    };
-
-    // if (this.imageFile) {
-    //   formData.append('image', this.imageFile, this.imageFile.name);
-    // }
-
-    try {
-      const response = await this.pubService.createPost({
-        idUser: this.idUser,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        username: this.username,
-        content: this.text
-      }).subscribe({
-        next: (res) => {
-          console.log('✅ Respuesta del backend:', res);
-        },
-        error: (err) => {
-          console.error('❌ Error en la petición:', err);
-        }
-      });
-      console.log("response", response);
-      this.text = '';
-
-    } catch (error) {
-      console.error('Error creando post:', error);
-    }
+      username: this.username,
+      content: this.text
+    }).subscribe({
+      next: (res) => {
+        this.text = '';
+        this.page = 1; // Volver a la primera página para ver el nuevo post
+        this.uploadPublications();
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   manageLike(id: number) {
@@ -121,8 +118,6 @@ export class Publications implements OnInit {
   }
 
   removeImage() {
-    console.log("removing image");
-    // this.imagePreview = null;
-    // this.imageFile = null;
+    // lógica de imagen
   }
 }
