@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: ''
+    apiUrl: 'https://matiastanoni-tp2-prog4-2025-c2-back.onrender.com'
 };

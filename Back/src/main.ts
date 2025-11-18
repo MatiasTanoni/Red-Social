@@ -9,7 +9,7 @@ async function bootstrap() {
     origin: (origin, callback) => {
       const allowedOrigins = [
         'http://localhost:4200',
-        'https://musa-front.onrender.com',
+        'https://matiastanoni-tp2-prog4-2025-c2.onrender.com',
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
