@@ -4,12 +4,14 @@ import { PublicationComponent } from './components/publication-component/publica
 import { FormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 import { Auth } from '../../service/auth';
+import { Spinner } from "../../components/spinner/spinner";
 
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.html',
   styleUrls: ['./publications.css'],
-  imports: [PublicationComponent, FormsModule] // Asegúrate de que sea Standalone o esté en un módulo
+  imports: [PublicationComponent, FormsModule, Spinner] // Asegúrate de que sea Standalone o esté en un módulo
+ // Asegúrate de que sea Standalone o esté en un módulo
 })
 export class Publications implements OnInit {
   publications: Publication[] = [];
