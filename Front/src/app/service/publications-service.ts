@@ -18,9 +18,12 @@ export class PublicationsService {
 
   constructor(private http: HttpClient) { }
 
-  getPublications(page: number, orderBy: 'fecha' | 'likes'): Observable<Publication[]> {
-    return this.http.get<Publication[]>(`${this.apiUrl}/all?page=${page}&orderBy=${orderBy}`);
+  getPublications(page: number, orderBy: 'fecha' | 'likes', limit = 3) {
+    return this.http.get<Publication[]>(
+      `${this.apiUrl}/all?page=${page}&orderBy=${orderBy}&limit=${limit}`
+    );
   }
+
 
   createPost(data: {
     idUser: string;

@@ -12,22 +12,25 @@
 
             <!-- Previsualización de imagen (si existiera lógica) -->
             <div class="mt-4 flex flex-wrap gap-2 relative">
-                <div class="relative w-24 h-24" *ngIf="false"> <!-- Oculto por ahora -->
+                @if (false) {
+                <div class="relative w-24 h-24">
                     <button (click)="removeImage()"
                         class="absolute top-0 right-0 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full hover:bg-red-600 transition">
                         ✕
                     </button>
                 </div>
+                }
             </div>
 
-            <div class="flex items-center justify-end gap-2 mt-2">
-                <button
-                    class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full font-medium disabled:opacity-50 transition cursor-pointer"
-                    [disabled]="!text || text.trim().length === 0" (click)="post()">
-                    Publicar
-                </button>
-            </div>
         </div>
+    </div>
+
+    <div class="flex items-center justify-end gap-2 mt-2">
+        <button
+            class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full font-medium disabled:opacity-50 transition cursor-pointer"
+            [disabled]="!text || text.trim().length === 0" (click)="post()">
+            Publicar
+        </button>
     </div>
 
     <!-- Filtros dentro del header sticky para que también estén siempre visibles -->

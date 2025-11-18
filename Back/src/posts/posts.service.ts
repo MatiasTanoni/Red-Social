@@ -48,20 +48,34 @@ export class PostsService {
         }
     }
 
-    async findAll(isAdmin: string): Promise<Post[]> {
+    async findAll(
+        page: number = 1,
+        limit: number = 10,
+        orderBy: 'fecha' | 'likes' = 'fecha',
+        isAdmin: string,
+    ): Promise<Post[]> {
         try {
+
             const filter = isAdmin === 'true' ? {} : { show: true };
+
+            const sort: any = {};
+            if (orderBy === 'fecha') sort.date = -1;
+            if (orderBy === 'likes') sort.likes = -1;
 
             const posts = await this.postModel
                 .find(filter)
-                .sort({ date: -1 })
+                .sort(sort)
+                .skip((page - 1) * limit)
+                .limit(limit)
                 .exec();
 
             return posts;
+
         } catch (error) {
-            console.error('Error al obtener todos los posts:', error);
-            throw new InternalServerErrorException('Error al obtener todos los posts');
+            console.error('Error al obtener posts:', error);
+            throw new InternalServerErrorException('Error al obtener los posts');
         }
     }
+
 
 }

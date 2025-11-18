@@ -64,8 +64,13 @@ export class PostsController {
     }
 
     @Get('/all')
-    findAll(@Query('isAdmin') isAdmin: string) {
-        return this.postsService.findAll(isAdmin);
+    findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+        @Query('orderBy') orderBy: 'fecha' | 'likes' = 'fecha',
+        @Query('isAdmin') isAdmin: string
+    ) {
+        return this.postsService.findAll(page, limit, orderBy, isAdmin);
     }
 
 }

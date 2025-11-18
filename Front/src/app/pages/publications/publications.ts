@@ -10,15 +10,13 @@ import { Spinner } from "../../components/spinner/spinner";
   selector: 'app-publications',
   templateUrl: './publications.html',
   styleUrls: ['./publications.css'],
-  imports: [PublicationComponent, FormsModule, Spinner] // Asegúrate de que sea Standalone o esté en un módulo
- // Asegúrate de que sea Standalone o esté en un módulo
+  imports: [PublicationComponent, FormsModule, Spinner]
 })
 export class Publications implements OnInit {
   publications: Publication[] = [];
 
-  // CONFIGURACIÓN DE PAGINACIÓN
   page = 1;
-  limit = 3; // <--- AQUÍ DEFINIMOS QUE SOLO SEAN 3
+  limit = 3;
   orderBy: 'fecha' | 'likes' = 'fecha';
 
   loading = false;
@@ -57,20 +55,9 @@ export class Publications implements OnInit {
 
   uploadPublications() {
     this.loading = true;
-
-    // IMPORTANTE: Tu servicio debe aceptar el tercer argumento 'limit'.
-    // Si tu servicio actual es getPublications(page, order), deberás modificarlo
-    // en el archivo del servicio para que sea: getPublications(page, order, limit)
-    // y pasar ese limit al backend.
     this.pubService.getPublications(this.page, this.orderBy /*, this.limit */).subscribe({
       next: (data) => {
-        // SI EL BACKEND NO SOPORTA EL LÍMITE:
-        // Descomenta la siguiente línea para cortar el array manualmente en el frontend (no es ideal para performance, pero funciona visualmente)
         this.publications = data.slice(0, 3);
-
-        // SI EL BACKEND SOPORTA LÍMITE:
-        // this.publications = data;
-
         this.loading = false;
         this.cdr.detectChanges();
       },
