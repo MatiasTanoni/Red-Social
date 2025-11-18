@@ -73,4 +73,9 @@ export class PostsController {
         return this.postsService.findAll(page, limit, orderBy, isAdmin);
     }
 
+    @Get('user/:id')
+    async getByUser(@Param('id') userId: string) {
+        return this.postsService.findByUser(userId);
+    }
+
 }

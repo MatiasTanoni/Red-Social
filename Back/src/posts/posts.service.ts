@@ -77,5 +77,11 @@ export class PostsService {
         }
     }
 
+    async findByUser(userId: string) {
+        return await this.postModel
+            .find({ userId })
+            .sort({ date: -1 })
+            .lean();
+    }
 
 }

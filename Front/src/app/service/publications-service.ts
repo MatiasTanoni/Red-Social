@@ -24,6 +24,10 @@ export class PublicationsService {
     );
   }
 
+  getPostsByUser(userId: string) {
+    return this.http.get(`${this.apiUrl}/user/${userId}`);
+  }
+
 
   createPost(data: {
     idUser: string;
