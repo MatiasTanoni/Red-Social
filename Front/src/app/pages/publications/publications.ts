@@ -34,7 +34,7 @@ export class Publications implements OnInit {
     this.username = this.user() && typeof this.user() === 'object' ? this.user().username : '';
     this.firstName = this.user() && typeof this.user() === 'object' ? this.user().name : '';
     this.lastName = this.user() && typeof this.user() === 'object' ? this.user().lastName : '';
-    this.profileImage = this.user() && typeof this.user() === 'object' ? this.user().profileImage : '';
+    // this.profileImage = this.user() && typeof this.user() === 'object' ? this.user().profileImage : '';
     this.idUser = this.user() && typeof this.user() === 'object' ? this.user().id : '';
     console.log("firstname", this.firstName);
   }
@@ -79,7 +79,7 @@ export class Publications implements OnInit {
     const body = {
       content: this.text,
       username: this.username,
-      profileImage: this.profileImage,
+      // profileImage: this.profileImage,
       firstName: this.firstName,
       lastName: this.lastName,
       idUser: this.idUser

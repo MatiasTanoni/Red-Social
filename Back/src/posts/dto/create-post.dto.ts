@@ -2,10 +2,10 @@ export class CreatePostDto {
     idUser: string;
     firstName: string;
     lastName: string;
-    profileImage: string;
+    // profileImage: string;
     username: string;
     content: string;
-    image?: string;
-    date?: Date | string;
+    // image?: string;
+    // date?: Date | string;
 
 }

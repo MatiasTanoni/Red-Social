@@ -1,0 +1,73 @@
+import {
+    Controller,
+    Post,
+    Put,
+    UploadedFile,
+    UseInterceptors,
+    Body,
+    BadRequestException,
+    InternalServerErrorException,
+    Query,
+    Param,
+    Get,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { PostsService } from './posts.service';
+// import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { CreatePostDto } from './dto/create-post.dto';
+import { CreateLikeDto } from './dto/create-like.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
+
+@Controller('posts')
+export class PostsController {
+    constructor(
+        private readonly postsService: PostsService,
+        // private readonly cloudinaryService: CloudinaryService,
+    ) { }
+
+    @Post('create')
+    @UseInterceptors(FileInterceptor('image'))
+    async createPost(
+        // @UploadedFile() file: Express.Multer.File,
+        @Body() createPostDto: CreatePostDto,
+    ) {
+        try {
+            console.log('createPostDto recibido en el controlador:', createPostDto);
+            let image: string | undefined;
+
+            if (!createPostDto.idUser) {
+                throw new BadRequestException('El id del usuario es obligatorio');
+            }
+
+            // if (file) {
+            //     try {
+            //         const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
+            //         image = imageUploadResult.secure_url;
+            //     } catch (err) {
+            //         console.error('Error subiendo imagen a Cloudinary:', err);
+            //         throw new InternalServerErrorException('Error al subir la imagen');
+            //     }
+            // }
+
+            const newPost = await this.postsService.createPost({
+                ...createPostDto,
+                // image,
+            });
+
+            return newPost;
+
+        } catch (error) {
+            console.error('Error en el controlador createPost:', error);
+            if (error instanceof BadRequestException || error instanceof InternalServerErrorException) {
+                throw error;
+            }
+            throw new InternalServerErrorException('Error interno al crear el post');
+        }
+    }
+
+    @Get('/all')
+    findAll(@Query('isAdmin') isAdmin: string) {
+        return this.postsService.findAll(isAdmin);
+    }
+
+}

@@ -19,12 +19,15 @@ export class PublicationsService {
   constructor(private http: HttpClient) { }
 
   getPublications(page: number, orderBy: 'fecha' | 'likes'): Observable<Publication[]> {
-    return this.http.get<Publication[]>(`${this.apiUrl}?page=${page}&orderBy=${orderBy}`);
+    return this.http.get<Publication[]>(`${this.apiUrl + '/all'}?page=${page}&orderBy=${orderBy}`);
   }
 
-  createPost(body: any): Observable<any> {
-    console.log("FORM DATA en servicio:", body);
-    return this.http.post<any>(this.apiUrl + '/create', body);
+  createPost(data: any): Observable<any> {
+    console.log("FORM DATA en servicio:", data);
+    console.log(this.apiUrl);
+    console.log(this.apiUrl + '/create');
+
+    return this.http.post<any>(this.apiUrl + '/create', data);
   }
 
   toggleLike(id: number): Observable<any> {

@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PostService } from './post.service';
-import { PostController } from './post.controller';
+import { PostsService } from './posts.service';
+import { PostsController } from './posts.controller';
 import { Post, PostSchema } from './schemas/post.schema';
+// import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
+    // CloudinaryModule,
   ],
-  providers: [PostService],
-  controllers: [PostController],
+  providers: [PostsService],
+  controllers: [PostsController],
 })
 export class PostsModule { }

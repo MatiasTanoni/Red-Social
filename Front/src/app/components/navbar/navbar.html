@@ -71,8 +71,7 @@
 
     @if (!user) {
     <li>
-        <a [routerLink]="!blockNavegation ? '/auth' : null"
-            routerLinkActive="border-b-2 border-white font-semibold text-white"
+        <a [routerLink]="'/auth'" routerLinkActive="border-b-2 border-white font-semibold text-white"
             class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
             Iniciar Sesión / Registrarse
         </a>
