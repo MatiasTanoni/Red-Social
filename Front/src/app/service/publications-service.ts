@@ -19,15 +19,24 @@ export class PublicationsService {
   constructor(private http: HttpClient) { }
 
   getPublications(page: number, orderBy: 'fecha' | 'likes'): Observable<Publication[]> {
-    return this.http.get<Publication[]>(`${this.apiUrl + '/all'}?page=${page}&orderBy=${orderBy}`);
+    return this.http.get<Publication[]>(`${this.apiUrl}/all?page=${page}&orderBy=${orderBy}`);
   }
 
-  createPost(data: any): Observable<any> {
-    console.log("FORM DATA en servicio:", data);
-    console.log(this.apiUrl);
-    console.log(this.apiUrl + '/create');
+  createPost(data: {
+    idUser: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    content: string;
+  }): Observable<any> {
+    try {
+      console.log("🔴 Enviando createPost con data:", data);
 
-    return this.http.post<any>(this.apiUrl + '/create', data);
+      return this.http.post<any>(`${this.apiUrl}/createPost`, data);
+    } catch (error) {
+      console.error("🔴 Error al enviar createPost:", error);
+      throw error;
+    }
   }
 
   toggleLike(id: number): Observable<any> {

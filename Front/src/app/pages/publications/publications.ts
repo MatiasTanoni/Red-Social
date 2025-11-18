@@ -76,7 +76,7 @@ export class Publications implements OnInit {
     // console.log("lastName", this.lastName);
     // console.log("idUser", this.idUser);
 
-    const body = {
+    const data = {
       content: this.text,
       username: this.username,
       // profileImage: this.profileImage,
@@ -90,10 +90,23 @@ export class Publications implements OnInit {
     // }
 
     try {
-      const response = await this.pubService.createPost(body);
+      const response = await this.pubService.createPost({
+        idUser: this.idUser,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        username: this.username,
+        content: this.text
+      }).subscribe({
+        next: (res) => {
+          console.log('✅ Respuesta del backend:', res);
+        },
+        error: (err) => {
+          console.error('❌ Error en la petición:', err);
+        }
+      });
+      console.log("response", response);
       this.text = '';
-      // this.imageFile = null;
-      // this.imagePreview = null;
+
     } catch (error) {
       console.error('Error creando post:', error);
     }

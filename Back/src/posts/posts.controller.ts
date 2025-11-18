@@ -15,8 +15,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { PostsService } from './posts.service';
 // import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { CreatePostDto } from './dto/create-post.dto';
-import { CreateLikeDto } from './dto/create-like.dto';
-import { CreateCommentDto } from './dto/create-comment.dto';
+// import { CreateLikeDto } from './dto/create-like.dto';
+// import { CreateCommentDto } from './dto/create-comment.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -25,19 +25,17 @@ export class PostsController {
         // private readonly cloudinaryService: CloudinaryService,
     ) { }
 
-    @Post('create')
-    @UseInterceptors(FileInterceptor('image'))
+    @Post('createPost')
     async createPost(
-        // @UploadedFile() file: Express.Multer.File,
-        @Body() createPostDto: CreatePostDto,
+        @Body() data: { idUser: string; firstName: string; lastName: string; username: string; content: string; },
     ) {
         try {
-            console.log('createPostDto recibido en el controlador:', createPostDto);
+            console.log('createPostDto recibido en el controlador:', data);
             let image: string | undefined;
 
-            if (!createPostDto.idUser) {
-                throw new BadRequestException('El id del usuario es obligatorio');
-            }
+            // if (!createPostDto.idUser) {
+            //     throw new BadRequestException('El id del usuario es obligatorio');
+            // }
 
             // if (file) {
             //     try {
@@ -49,12 +47,12 @@ export class PostsController {
             //     }
             // }
 
-            const newPost = await this.postsService.createPost({
-                ...createPostDto,
-                // image,
-            });
+            // const newPost = await this.postsService.createPost({
+            //     ...createPostDto,
+            //     // image,
+            // });
 
-            return newPost;
+            return data;
 
         } catch (error) {
             console.error('Error en el controlador createPost:', error);
