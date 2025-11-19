@@ -54,7 +54,7 @@ export class Register implements OnInit {
         birthDate: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         perfil: new FormControl('usuario', [Validators.required]),
-        // profileImage: new FormControl(null, [Validators.required]),
+        profileImage: new FormControl(null, [Validators.required]),
       },
       {
         validators: this.passwordsMatchValidator,
@@ -75,8 +75,7 @@ export class Register implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      // Opcional: si quisieras guardar solo el nombre
-      // this.formulario.patchValue({ profileImage: this.selectedFile.name });
+      this.formulario.patchValue({ profileImage: this.selectedFile.name });
     }
   }
 
