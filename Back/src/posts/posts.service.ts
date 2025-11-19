@@ -83,7 +83,8 @@ export class PostsService {
 
             const posts = await this.postModel
                 .find({ idUser: userId, show: true })
-                .sort({ date: -1 })
+                .sort({ date: -1 })   // Orden descendente (últimos primero)
+                .limit(3)             // SOLO 3 posts
                 .lean();
 
             console.log('Posts encontrados:', posts.length);
@@ -95,5 +96,6 @@ export class PostsService {
             throw new InternalServerErrorException('No se pudieron obtener los posts');
         }
     }
+
 
 }
