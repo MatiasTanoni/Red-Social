@@ -10,23 +10,35 @@ import { signal } from '@angular/core';
 })
 export class Auth {
   private apiUrl = environment.apiUrl + '/auth';
+
   user = signal<any | boolean>(false);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      this.user.set(JSON.parse(savedUser));
+    }
+  }
 
   async register(formData: FormData): Promise<{ success: boolean; message: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean; message: string; user?: any }>(`${this.apiUrl}/register`, formData)
+        this.http.post<{ success: boolean; message: string; user?: any }>(
+          `${this.apiUrl}/register`,
+          formData
+        )
       );
 
       if (response.success && response.user) {
-        this.user.set(response.user); // ✅ guardamos el usuario
-        console.log('USUARIO REGISTRADO:', this.user());
+        // Guardar en signal
+        this.user.set(response.user);
+
+        // Guardar en localStorage (persistencia)
+        localStorage.setItem('user', JSON.stringify(response.user));
       }
 
-      console.log('USUARIO REGISTRADO:', this.user());
       return response;
+
     } catch (error) {
       this.user.set(false);
       console.error('ERROR EN REGISTRO:', error);
@@ -36,22 +48,28 @@ export class Auth {
 
   async login(usernameOrEmail: string, password: string): Promise<{ success: boolean; message: string }> {
     try {
-      const response = this.http.post<any>(`${this.apiUrl}/login`, { usernameOrEmail, password });
-      const user = await firstValueFrom(response);
+      const user = await firstValueFrom(
+        this.http.post<any>(`${this.apiUrl}/login`, { usernameOrEmail, password })
+      );
 
-      this.user.set(user); // ✅ guardamos el objeto usuario del backend
-      console.log('USUARIO LOGUEADO:', this.user());
+      // Guardar en memoria
+      this.user.set(user);
+
+      // Guardar en localStorage
+      localStorage.setItem('user', JSON.stringify(user));
+
       return { success: true, message: 'Login exitoso' };
+
     } catch (error: any) {
       this.user.set(false);
       const errorMessage = error?.error?.message || 'Ocurrió un error inesperado';
-      console.error('Error en AuthService.login:', errorMessage);
+      console.error('Error en login:', errorMessage);
       return { success: false, message: errorMessage };
     }
   }
 
   logout(): Promise<{ success: boolean; message: string }> {
-    localStorage.clear();
+    localStorage.removeItem('user');
     this.user.set(false);
     this.router.navigate(['/auth']);
     return Promise.resolve({ success: true, message: 'Sesión cerrada exitosamente' });
