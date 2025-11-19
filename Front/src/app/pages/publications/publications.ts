@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 import { Auth } from '../../service/auth';
 import { Spinner } from "../../components/spinner/spinner";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-publications',
@@ -32,26 +33,32 @@ export class Publications implements OnInit {
   constructor(
     private pubService: PublicationsService,
     private auth: Auth,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    // 1. Auth
-    this.idUser = localStorage.getItem('id') || '';
-    this.user.set(this.auth.getUser());
+    // Obtener usuario
+    const currentUser = this.auth.getUser();
 
-    if (this.user() && typeof this.user() === 'object') {
-      this.username = this.user().username;
-      this.firstName = this.user().name;
-      this.lastName = this.user().lastName;
-      this.idUser = this.user().id;
-      // this.profileImage = this.user().profileImage; 
+    // Si NO hay usuario → redirigir
+    if (!currentUser) {
+      this.router.navigate(['/auth']);
+      return;
     }
 
-    // 2. Cargar publicaciones
+    // Setear usuario si existe
+    this.user.set(currentUser);
+    this.username = currentUser.username;
+    this.firstName = currentUser.name;
+    this.lastName = currentUser.lastName;
+    this.idUser = currentUser.id;
+
+    // Cargar publicaciones
     this.page = 1;
     this.uploadPublications();
   }
+
 
   uploadPublications() {
     this.loading = true;
