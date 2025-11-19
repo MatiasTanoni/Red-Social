@@ -20,7 +20,7 @@
 
                 <div class="flex items-center justify-end mt-3">
                     <button
-                        class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full font-semibold disabled:opacity-50 transition shadow-md w-full sm:w-auto"
+                        class="bg-white text-black hover:bg-gray-200 px-5 py-2 rounded-full font-semibold disabled:opacity-50 transition shadow-md w-full sm:w-auto"
                         [disabled]="!text || text.trim().length === 0" (click)="post()">
                         Publicar
                     </button>
@@ -66,14 +66,14 @@
                   flex justify-between items-center w-full p-3 shadow-lg rounded-xl">
 
                 <button (click)="anteriorPagina()" [disabled]="page === 1 || loading"
-                    class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base">
+                    class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base">
                     Anterior
                 </button>
 
                 <span class="text-gray-400 text-sm font-medium">Página {{ page }}</span>
 
                 <button (click)="siguientePagina()" [disabled]="loading || publications.length < limit"
-                    class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base">
+                    class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base">
                     Siguiente
                 </button>
 

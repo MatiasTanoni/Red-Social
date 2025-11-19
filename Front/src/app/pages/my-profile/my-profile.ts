@@ -32,6 +32,7 @@ export class MyProfile {
   orderBy: 'fecha' | 'likes' = 'fecha';
   loading = false;
   publications: Publication[] = [];
+  description: string | null = null;
   constructor(private pubService: PublicationsService, private auth: Auth, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -44,6 +45,7 @@ export class MyProfile {
       this.firstName = this.user().name;
       this.lastName = this.user().lastName;
       this.idUser = this.user().id;
+      this.description = this.user().description;
       // this.profileImage = this.user().profileImage; 
     }
 
