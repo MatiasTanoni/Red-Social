@@ -12,13 +12,13 @@
                         class="w-12 h-12 rounded-full object-cover shadow-md" alt="Avatar" />
                     <div class="flex-1">
                         <textarea [(ngModel)]="text" placeholder="¿Qué está pasando?" maxlength="140" rows="4"
-                            class="bg-gray-800/40 w-full text-white resize-none outline-none text-base placeholder-gray-400 rounded-xl p-3 border border-gray-700 focus:border-blue-500 transition">
+                            class="bg-gray-800/40 w-full text-white resize-none outline-none text-base placeholder-gray-400 rounded-xl p-3 border border-gray-700 focus:border-white transition">
                         </textarea>
                     </div>
                 </div>
                 <div class="flex items-center justify-end mt-3">
                     <button
-                        class="bg-white text-black hover:bg-gray-200 px-5 py-2 rounded-full font-semibold disabled:opacity-50 transition shadow-md w-full sm:w-auto"
+                        class="bg-white text-black hover:bg-gray-200 px-5 py-2 rounded-full font-semibold disabled:opacity-50 transition shadow-md w-full sm:w-auto  cursor-pointer"
                         [disabled]="!text || text.trim().length === 0" (click)="post()">
                         Publicar
                     </button>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <button
-                            class="bg-white text-black text-xs font-bold px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
+                            class="bg-white text-black text-xs font-bold px-3 py-1.5 rounded-full hover:bg-gray-200 transition  cursor-pointer">
                             Seguir
                         </button>
                     </div>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <button
-                            class="bg-white text-black text-xs font-bold px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
+                            class="bg-white text-black text-xs font-bold px-3 py-1.5 rounded-full hover:bg-gray-200 transition  cursor-pointer">
                             Seguir
                         </button>
                     </div>
@@ -92,7 +92,7 @@
                 class="flex flex-col sm:flex-row justify-between items-center bg-gray-900/60 p-3 rounded-xl border-2 border-gray-700 backdrop-blur-sm gap-3 sm:gap-0 shrink-0">
                 <h2 class="text-xl font-semibold tracking-wide px-2">Publicaciones</h2>
                 <select [(ngModel)]="orderBy" (change)="changeOrder(orderBy)"
-                    class="bg-gray-800/60 border border-gray-600 rounded-xl px-3 py-1 text-sm shadow focus:outline-none focus:border-blue-500 transition cursor-pointer sm:w-auto">
+                    class="bg-gray-800/60 border border-gray-600 rounded-xl px-3 py-1 text-sm shadow focus:outline-none focus:border-white transition cursor-pointer sm:w-auto">
                     <option value="fecha">Más recientes</option>
                     <option value="likes">Más populares</option>
                 </select>
@@ -120,14 +120,14 @@
                                 flex justify-between items-center w-full p-3 shadow-lg rounded-xl">
 
                     <button (click)="anteriorPagina()" [disabled]="page === 1 || loading"
-                        class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base">
+                        class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base cursor-pointer">
                         Anterior
                     </button>
 
                     <span class="text-gray-400 text-sm font-medium">Página {{ page }}</span>
 
                     <button (click)="siguientePagina()" [disabled]="loading || publications.length < limit"
-                        class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base">
+                        class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base cursor-pointer">
                         Siguiente
                     </button>
                 </div>
