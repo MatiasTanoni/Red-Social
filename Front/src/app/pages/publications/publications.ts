@@ -53,6 +53,7 @@ export class Publications implements OnInit {
     this.firstName = currentUser.name;
     this.lastName = currentUser.lastName;
     this.idUser = currentUser.id;
+    this.profileImage = currentUser.image_url;
 
     // Cargar publicaciones
     this.page = 1;

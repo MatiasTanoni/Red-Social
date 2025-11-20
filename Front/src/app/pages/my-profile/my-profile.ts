@@ -47,7 +47,6 @@ export class MyProfile {
       this.idUser = this.user().id;
       this.description = this.user().description;
       this.profileImage = this.user().image_url;
-      console.log("profileImage", this.profileImage);
     }
 
     // 2. Cargar publicaciones
