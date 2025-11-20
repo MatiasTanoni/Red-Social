@@ -6,6 +6,7 @@ import { Spinner } from '../../components/spinner/spinner';
 
 export interface Publication {
   _id: number;
+  image_url: string;
   username: string;
   content: string;
   date: Date;
@@ -26,7 +27,7 @@ export class MyProfile {
   username: any;
   firstName: any;
   lastName: any;
-  profileImage: any; // Agregué esto para que no de error en el HTML
+  image_url: any;
   page = 1;
   limit = 3;
   orderBy: 'fecha' | 'likes' = 'fecha';
@@ -46,7 +47,7 @@ export class MyProfile {
       this.lastName = this.user().lastName;
       this.idUser = this.user().id;
       this.description = this.user().description;
-      this.profileImage = this.user().image_url;
+      this.image_url = this.user().image_url;
     }
 
     // 2. Cargar publicaciones
