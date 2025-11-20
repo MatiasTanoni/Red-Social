@@ -7,7 +7,7 @@ export class Post extends Document {
     @Prop() idUser: string;
     @Prop() firstName: string;
     @Prop() lastName: string;
-    @Prop() profileImage: string;
+    @Prop() image_url: string;
     @Prop({ required: true }) username: string;
     @Prop() content: string;
     @Prop() likes: Array<string>;

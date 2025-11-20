@@ -10,6 +10,7 @@ export interface Publication {
   date: Date;
   likes: Array<string>;
   iLike: boolean;
+  image_url : string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -36,6 +37,7 @@ export class PublicationsService {
     lastName: string;
     username: string;
     content: string;
+    image_url: string;
   }): Observable<any> {
     try {
       console.log("🔴 Enviando createPost con data:", data);

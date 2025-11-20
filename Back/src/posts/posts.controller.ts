@@ -27,7 +27,7 @@ export class PostsController {
 
     @Post('createPost')
     async createPost(
-        @Body() data: { idUser: string; firstName: string; lastName: string; username: string; content: string; },
+        @Body() data: { idUser: string; firstName: string; lastName: string; username: string; content: string; image_url: string; },
     ) {
         try {
             console.log('createPostDto recibido en el controlador:', data);

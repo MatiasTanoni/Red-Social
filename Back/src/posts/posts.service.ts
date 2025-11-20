@@ -15,7 +15,7 @@ export class PostsService {
         idUser: string;
         firstName: string;
         lastName: string;
-        // profileImage: string;
+        image_url: string;
         username: string;
         content: string;
         // image?: string;
@@ -31,7 +31,7 @@ export class PostsService {
                 idUser: data.idUser,
                 firstName: data.firstName,
                 lastName: data.lastName,
-                // profileImage: data.profileImage,
+                image_url: data.image_url,
                 username: data.username,
                 content: data.content,
                 // image: data.image,

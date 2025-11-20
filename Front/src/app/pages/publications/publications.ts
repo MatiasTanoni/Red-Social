@@ -27,7 +27,7 @@ export class Publications implements OnInit {
   username: any;
   firstName: any;
   lastName: any;
-  profileImage: any; // Agregué esto para que no de error en el HTML
+  image_url: any; 
   text: string = '';
 
   constructor(
@@ -53,7 +53,7 @@ export class Publications implements OnInit {
     this.firstName = currentUser.name;
     this.lastName = currentUser.lastName;
     this.idUser = currentUser.id;
-    this.profileImage = currentUser.image_url;
+    this.image_url = currentUser.image_url;
 
     // Cargar publicaciones
     this.page = 1;
@@ -104,7 +104,8 @@ export class Publications implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       username: this.username,
-      content: this.text
+      content: this.text,
+      image_url : this.image_url
     }).subscribe({
       next: (res) => {
         this.text = '';

@@ -8,7 +8,7 @@
                 <h3 class="text-lg font-semibold mb-4 bg-gray-900/60 rounded px-2 py-1 inline-block">Crear publicación
                 </h3>
                 <div class="flex items-start gap-4">
-                    <img [src]="profileImage || 'assets/default-avatar.png'"
+                    <img [src]="image_url || 'assets/default-avatar.png'"
                         class="w-12 h-12 rounded-full object-cover shadow-md" alt="Avatar" />
                     <div class="flex-1">
                         <textarea [(ngModel)]="text" placeholder="¿Qué está pasando?" maxlength="140" rows="4"
