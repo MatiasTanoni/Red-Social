@@ -128,17 +128,40 @@
         </div>
     </div>
 
-    <div class="mb-3">
-        <label for="profileImage" class="block text-sm font-medium mb-1 text-gray-400">Imagen de perfil</label>
-        <input id="profileImage" type="file" formControlName="profileImage" (change)="onFileChange($event)"
-            accept="image/*" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition">
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('profileImage')?.touched &&
-            formulario.get('profileImage')?.errors?.['required']) { La imagen de perfil es
-            obligatoria. }
+    <!-- seleccionar foto -->
+    <div class="flex flex-col items-center gap-2 mt-3">
+
+        <!-- Botón para seleccionar archivo solo si no hay imagen -->
+        @if (!previewImage) {
+        <button type="button" (click)="fileInput.click()" class="modal-btn save-btn text-sm w-full">
+            seleccionar foto
+        </button>
+
+        <!-- input REAL oculto -->
+        <input type="file" #fileInput accept="image/*" (change)="onImageSelected($event)" hidden />
+        }
+
+        <!-- Vista previa de la foto -->
+        @if (previewImage) {
+        <div class="relative mt-2">
+            <img [src]="previewImage" alt="Foto seleccionada"
+                class="w-24 h-24 object-cover rounded-xl shadow-md border border-[#FFDAB3]/60" />
+
+            <!-- Botón para borrar -->
+            <button type="button" (click)="removePicture()"
+                class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow-md hover:bg-red-700 transition-all duration-200"
+                title="Eliminar foto">
+                ✕
+            </button>
         </div>
+        }
     </div>
+
+    <p class="text-red-400 text-xs mt-0.5 mb-0 transition min-h-[1.5em]">
+        @if (formulario.get('image_url')?.invalid &&
+        formulario.get('image_url')?.touched) { La imagen es obligatoria. }
+    </p>
+
 
     <button type="submit" [disabled]="formulario.invalid"
         class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold mt-2 py-3 px-4 rounded-2xl shadow-lg transition-transform duration-200 transform hover:-translate-y-1 hover:shadow-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed">

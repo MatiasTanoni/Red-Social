@@ -11,10 +11,8 @@ export class AuthController {
     private readonly authService: AuthService,
   ) { }
   @Post('register')
-  @UseInterceptors(FileInterceptor('profileImage'))
   async register(
     @Body() createUserDto: CreateUserDto,
-    // @UploadedFile() file: Express.Multer.File,
   ): Promise<any> {
     console.log('BACK:', createUserDto);
     const existingEmail = await this.authService.findOneByEmail(createUserDto.email);

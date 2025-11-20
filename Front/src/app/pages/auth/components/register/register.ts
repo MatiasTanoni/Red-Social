@@ -11,6 +11,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../../../service/auth';
 import { Router } from '@angular/router';
+import { CloudinaryService } from '../../../../service/cloudinary/cloudinary';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -23,8 +25,9 @@ export class Register implements OnInit {
   formulario!: FormGroup;
   registerError: string | null = null;
   selectedFile: File | null = null;
+  previewImage: string | null = null;
 
-  constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router, private cloudinary: CloudinaryService) { }
 
   ngOnInit() {
     this.formulario = new FormGroup(
@@ -54,7 +57,7 @@ export class Register implements OnInit {
         birthDate: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         perfil: new FormControl('usuario', [Validators.required]),
-        profileImage: new FormControl(null, [Validators.required]),
+        image_url: new FormControl(null, [Validators.required]),
       },
       {
         validators: this.passwordsMatchValidator,
@@ -71,13 +74,39 @@ export class Register implements OnInit {
   }
 
   // Método para capturar el archivo
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.formulario.patchValue({ profileImage: this.selectedFile.name });
-    }
+  // onFileChange(event: Event) {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files.length > 0) {
+  //     this.selectedFile = input.files[0];
+  //     this.formulario.patchValue({ profileImage: this.selectedFile.name });
+  //   }
+  // }
+
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.selectedFile = file;
+
+    // Vista previa
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.previewImage = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+
+    // Guardar en el formulario
+    this.formulario.patchValue({
+      image_url: file
+    });
   }
+
+  removePicture() {
+    this.selectedFile = null;
+    this.previewImage = null;
+    this.formulario.patchValue({ image_url: null });
+  }
+
 
   async onRegister() {
     // Marcar todos los campos como "tocados" para mostrar errores
@@ -88,6 +117,15 @@ export class Register implements OnInit {
       return;
     }
 
+    let imageUrl: string | null = null;
+
+    if (this.selectedFile) {
+      const uploadResponse = await firstValueFrom(this.cloudinary.uploadFile(this.selectedFile));
+      imageUrl = uploadResponse.secure_url;
+      this.formulario.patchValue({ image_url: imageUrl });
+    }
+
+    console.log("imagen", imageUrl);
     const formValue = this.formulario.value;
 
     console.log('Enviando datos:', formValue);

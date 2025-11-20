@@ -27,13 +27,13 @@ export class User {
     description?: string;
 
     @Prop()
-    profileImage?: string;
+    image_url?: string;
 
     @Prop({ default: "false" })
     perfil: string;
 
     @Prop({ default: Date.now })
-    createdAt: Date;
+    createdAt?: Date;
 
     @Prop({ default: true })
     show: boolean;

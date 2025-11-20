@@ -21,6 +21,7 @@ export class Auth {
   }
 
   async register(formData: FormData): Promise<{ success: boolean; message: string }> {
+    console.log('REGISTER:', formData);
     try {
       const response = await firstValueFrom(
         this.http.post<{ success: boolean; message: string; user?: any }>(

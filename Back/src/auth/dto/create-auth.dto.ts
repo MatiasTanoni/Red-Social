@@ -44,13 +44,10 @@ export class CreateUserDto {
 
     @IsOptional()
     @IsString()
-    profileImage?: string;
+    image_url?: string;
 
     @IsString()
     perfil: string;
-
-    @IsDateString()
-    createdAt: Date;
 
     @IsOptional()
     @IsBoolean()
