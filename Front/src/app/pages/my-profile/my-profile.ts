@@ -74,4 +74,12 @@ export class MyProfile {
       }
     });
   }
+
+  manageLike() {
+    this.uploadPublicationsByUser();
+  }
+
+  manageDelete(id: number) {
+    this.pubService.deletePublication(id).subscribe(() => this.uploadPublicationsByUser());
+  }
 }
