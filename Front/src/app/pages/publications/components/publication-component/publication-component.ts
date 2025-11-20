@@ -19,9 +19,14 @@ export class PublicationComponent {
   constructor(private pubService: PublicationsService) { }
 
   onLike(id: number, idUser: string) {
-    this.pubService.toggleLike(id, idUser).subscribe();
-    this.like.emit();       
+    this.pubService.toggleLike(id, idUser).subscribe((updatedPub: Publication) => {
+
+      this.publication.likes = updatedPub.likes;
+
+      this.like.emit();
+    });
   }
+
 
   onDelete() {
     this.delete.emit(this.publication._id);
