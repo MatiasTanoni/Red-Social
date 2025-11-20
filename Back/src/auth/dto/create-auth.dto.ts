@@ -46,8 +46,8 @@ export class CreateUserDto {
     @IsString()
     image_url?: string;
 
-    @IsString()
-    perfil: string;
+    // @IsString()
+    // perfil: string;
 
     @IsOptional()
     @IsBoolean()

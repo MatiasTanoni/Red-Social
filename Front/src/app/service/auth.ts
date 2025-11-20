@@ -33,7 +33,7 @@ export class Auth {
       if (response.success && response.user) {
         // Guardar en signal
         this.user.set(response.user);
-
+        console.log('USER:', response.user);
         // Guardar en localStorage (persistencia)
         localStorage.setItem('user', JSON.stringify(response.user));
       }

@@ -24,11 +24,24 @@ export class AuthService {
       show: true,
       password: hashedPassword
     });
-    console.log('NEW USER:', newUser);
-    return newUser.save();
+
+    const savedUser = await newUser.save();
+
+    return {
+      id: savedUser._id,
+      username: savedUser.username,
+      email: savedUser.email,
+      name: savedUser.name,
+      lastName: savedUser.lastName,
+      birthDate: savedUser.birthDate,
+      description: savedUser.description || "",
+      image_url: savedUser.image_url || "",
+      show: savedUser.show
+    };
   }
 
-  async login(usernameOrEmail: string, password: string): Promise<{ id: Object; username: string; perfil: string; name: string; lastName: string, birthDate: string; description: string, email: string, image_url: string, show: boolean }> {
+
+  async login(usernameOrEmail: string, password: string): Promise<{ id: Object; username: string; name: string; lastName: string, birthDate: string; description: string, email: string, image_url: string, show: boolean }> {
     const user = await this.userModel.findOne({
       $or: [{ email: usernameOrEmail.toLocaleLowerCase() }, { username: usernameOrEmail.toLocaleLowerCase() }]
     }).exec();
@@ -59,7 +72,7 @@ export class AuthService {
       email: user.email,
       name: user.name,
       lastName: user.lastName,
-      perfil: user.perfil,
+      // perfil: user.perfil,
       birthDate: user.birthDate,
       description: user.description || "",
       image_url: user.image_url || "",
