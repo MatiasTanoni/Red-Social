@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
-
+import { ForbiddenException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Types } from 'mongoose';
 
@@ -97,5 +97,24 @@ export class PostsService {
         }
     }
 
-
+    async toggleLike(id: number, idUser: string): Promise<Post> {
+        console.log('toggleLike recibido en el servicio:', id, idUser);
+        try {
+            const post = await this.postModel.findById(id).exec();
+            if (!post) {
+                throw new NotFoundException('No se pudo encontrar el post');
+            }
+            if (post.likes.includes(idUser)) {
+                post.likes = post.likes.filter(like => like !== idUser);
+                await post.save();
+                return post;
+            }
+            post.likes.push(idUser);
+            await post.save();
+            return post;
+        } catch (error) {
+            console.error('Error en toggleLike:', error);
+            throw new InternalServerErrorException('Error al cambiar el like');
+        }
+    }
 }

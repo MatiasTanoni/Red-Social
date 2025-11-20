@@ -56,7 +56,7 @@
         </div>
         } @else {
 
-        @for (p of publications; track p.id || $index) {
+        @for (p of publications; track p._id || $index) {
         <div class="group relative w-full rounded-xl bg-gray-900/60 border-2 border-gray-700/50 p-1 
                             hover:bg-gray-800/60 hover:border-gray-600 hover:shadow-lg transition-all duration-300">
 

@@ -13,8 +13,15 @@
 
 
     <div class="flex justify-between items-center mt-auto">
-        <button (click)="onLike()" class="text-sm px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 transition">
-            {{ publication.iLike ? '💔 Quitar Me Gusta' : '❤️ Me Gusta' }} ({{ publication.likes }})
+        <button (click)="onLike(publication._id, idUser)"
+            class="text-sm px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 transition">
+            @if (publication.likes.includes(idUser)) {
+            💔
+            }
+            @else {
+            ❤️
+            }
+            ({{ publication.likes.length }})
         </button>
 
         @if (itsOwnProfile) {

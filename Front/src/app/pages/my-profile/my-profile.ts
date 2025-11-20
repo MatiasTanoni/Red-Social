@@ -5,11 +5,11 @@ import { PublicationComponent } from '../publications/components/publication-com
 import { Spinner } from '../../components/spinner/spinner';
 
 export interface Publication {
-  id: number;
+  _id: number;
   username: string;
   content: string;
   date: Date;
-  likes: number;
+  likes: Array<string>;
   iLike: boolean;
 }
 

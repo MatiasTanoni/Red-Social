@@ -105,10 +105,11 @@
                     <app-spinner></app-spinner>
                 </div>
                 } @else {
-                @for (p of publications; track p.id || $index) {
+                @for (p of publications; track p._id || $index) {
                 <div
                     class="mb-4 rounded-xl bg-gray-900/60 border-2 border-gray-700 shadow-md hover:bg-gray-900/80 transition w-180">
-                    <app-publication [publication]="p" (like)="manageLike($event)" (delete)="manageDelete($event)">
+                    <app-publication [publication]="p" [idUser]="idUser" (like)="manageLike()"
+                        (delete)="manageDelete($event)">
                     </app-publication>
                 </div>
                 } @empty {

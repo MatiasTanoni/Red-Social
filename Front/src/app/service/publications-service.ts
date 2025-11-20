@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface Publication {
-  id: number;
+  _id: number;
   username: string;
   content: string;
   date: Date;
-  likes: number;
+  likes: Array<string>;
   iLike: boolean;
 }
 
@@ -47,8 +47,8 @@ export class PublicationsService {
     }
   }
 
-  toggleLike(id: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${id}/like`, {});
+  toggleLike(id: number, idUser: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/like`, { id, idUser });
   }
 
   deletePublication(id: number): Observable<any> {

@@ -66,6 +66,7 @@ export class Publications implements OnInit {
     this.pubService.getPublications(this.page, this.orderBy /*, this.limit */).subscribe({
       next: (data) => {
         this.publications = data.slice(0, 3);
+        console.log("Publicaciones:", this.publications);
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -114,8 +115,8 @@ export class Publications implements OnInit {
     });
   }
 
-  manageLike(id: number) {
-    this.pubService.toggleLike(id).subscribe(() => this.uploadPublications());
+  manageLike() {
+    this.uploadPublications();
   }
 
   manageDelete(id: number) {

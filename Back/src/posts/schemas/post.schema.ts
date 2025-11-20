@@ -10,6 +10,7 @@ export class Post extends Document {
     @Prop() profileImage: string;
     @Prop({ required: true }) username: string;
     @Prop() content: string;
+    @Prop() likes: Array<string>;
     // @Prop() image?: string;
 
     // @Prop({
@@ -22,13 +23,6 @@ export class Post extends Document {
     //     }],
     //     default: [],
     // })
-    // likes: {
-    //     idUser: string;
-    //     username: string;
-    //     firstName: string;
-    //     lastName: string;
-    //     profileImage: string;
-    // }[];
 
     // @Prop({
     //     type: [{

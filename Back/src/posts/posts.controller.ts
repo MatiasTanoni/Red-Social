@@ -63,6 +63,23 @@ export class PostsController {
         }
     }
 
+    @Post('like')
+    async toggleLike(
+        @Body() data: { id: number; idUser: string; }
+    ) {
+        try {
+            console.log('toggleLike recibido en el controlador:', data);
+            const newPost = await this.postsService.toggleLike(data.id, data.idUser);
+            return true;
+        } catch (error) {
+            console.error('Error en el controlador toggleLike:', error);
+            if (error instanceof BadRequestException || error instanceof InternalServerErrorException) {
+                throw error;
+            }
+            throw new InternalServerErrorException('Error interno al cambiar el like');
+        }
+    }
+
     @Get('/all')
     findAll(
         @Query('page') page: number = 1,

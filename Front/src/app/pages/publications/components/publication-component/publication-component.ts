@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Publication } from '../../../../service/publications-service';
 import { DatePipe } from '@angular/common';
+import { PublicationsService } from '../../../../service/publications-service';
 
 @Component({
   selector: 'app-publication',
@@ -10,15 +11,19 @@ import { DatePipe } from '@angular/common';
 })
 export class PublicationComponent {
   @Input() publication!: Publication;
+  @Input() idUser!: string;
   @Input() itsOwnProfile: boolean = false;
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
 
-  onLike() {
-    this.like.emit(this.publication.id);
+  constructor(private pubService: PublicationsService) { }
+
+  onLike(id: number, idUser: string) {
+    this.pubService.toggleLike(id, idUser).subscribe();
+    this.like.emit();       
   }
 
   onDelete() {
-    this.delete.emit(this.publication.id);
+    this.delete.emit(this.publication._id);
   }
 }
