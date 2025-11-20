@@ -73,15 +73,6 @@ export class Register implements OnInit {
     return pass === confirm ? null : { passwordsMismatch: true };
   }
 
-  // Método para capturar el archivo
-  // onFileChange(event: Event) {
-  //   const input = event.target as HTMLInputElement;
-  //   if (input.files && input.files.length > 0) {
-  //     this.selectedFile = input.files[0];
-  //     this.formulario.patchValue({ profileImage: this.selectedFile.name });
-  //   }
-  // }
-
   onImageSelected(event: any) {
     const file = event.target.files[0];
     if (!file) return;
