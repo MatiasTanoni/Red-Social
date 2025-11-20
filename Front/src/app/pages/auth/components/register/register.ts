@@ -56,7 +56,7 @@ export class Register implements OnInit {
         confirmPassword: new FormControl('', [Validators.required]),
         birthDate: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-        perfil: new FormControl('usuario', [Validators.required]),
+        // perfil: new FormControl('usuario', [Validators.required]),
         image_url: new FormControl(null, [Validators.required]),
       },
       {
@@ -79,18 +79,21 @@ export class Register implements OnInit {
 
     this.selectedFile = file;
 
-    // Vista previa
     const reader = new FileReader();
+
     reader.onload = () => {
       this.previewImage = reader.result as string;
+
+      this.cdr.detectChanges();
     };
+
     reader.readAsDataURL(file);
 
-    // Guardar en el formulario
     this.formulario.patchValue({
       image_url: file
     });
   }
+
 
   removePicture() {
     this.selectedFile = null;
