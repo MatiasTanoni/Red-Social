@@ -35,7 +35,6 @@ export class PostsService {
                 username: data.username,
                 content: data.content,
                 imagePost: data.imagePost,
-                // likes: [],
                 // comments: [],
                 date: new Date(),
                 show: true,

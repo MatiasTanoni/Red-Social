@@ -73,11 +73,14 @@ export class Publications implements OnInit {
 
     this.selectedImage = file;
 
-    // Previsualización
     const reader = new FileReader();
-    reader.onload = () => this.previewImage = reader.result as string;
+    reader.onload = () => {
+      this.previewImage = reader.result as string;
+      this.cdr.detectChanges();
+    };
     reader.readAsDataURL(file);
   }
+
 
   uploadPublications() {
     this.loading = true;
