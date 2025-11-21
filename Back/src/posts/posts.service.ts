@@ -111,7 +111,7 @@ export class PostsService {
         }
     }
 
-    async toggleLike(id: number, idUser: string): Promise<Post> {
+    async toggleLike(id: string, idUser: string): Promise<Post> {
         console.log('toggleLike recibido en el servicio:', id, idUser);
         try {
             const post = await this.postModel.findById(id).exec();
@@ -129,6 +129,14 @@ export class PostsService {
         } catch (error) {
             console.error('Error en toggleLike:', error);
             throw new InternalServerErrorException('Error al cambiar el like');
+        }
+    }
+
+    async delete(_id: string): Promise<void> {
+        const result = await this.postModel.findByIdAndDelete(_id);
+
+        if (!result) {
+            throw new NotFoundException(`Post con id ${_id} no encontrado`);
         }
     }
 }

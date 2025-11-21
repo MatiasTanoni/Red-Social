@@ -14,11 +14,11 @@ export class PublicationComponent {
   @Input() idUser!: string;
   @Input() itsOwnProfile: boolean = false;
   @Output() like = new EventEmitter<number>();
-  @Output() delete = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<string>();
 
   constructor(private pubService: PublicationsService) { }
 
-  onLike(id: number, idUser: string) {
+  onLike(id: string, idUser: string) {
     this.pubService.toggleLike(id, idUser).subscribe((updatedPub: Publication) => {
 
       this.publication.likes = updatedPub.likes;
@@ -26,7 +26,6 @@ export class PublicationComponent {
       this.like.emit();
     });
   }
-
 
   onDelete() {
     this.delete.emit(this.publication._id);

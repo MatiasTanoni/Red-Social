@@ -10,6 +10,7 @@ import {
     Query,
     Param,
     Get,
+    Delete,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostsService } from './posts.service';
@@ -65,7 +66,7 @@ export class PostsController {
 
     @Post('like')
     async toggleLike(
-        @Body() data: { id: number; idUser: string; }
+        @Body() data: { id: string; idUser: string; }
     ) {
         try {
             console.log('toggleLike recibido en el controlador:', data);
@@ -96,4 +97,9 @@ export class PostsController {
         return this.postsService.findByUser(userId);
     }
 
+    @Delete(':id')
+    async delete(@Param('id') _id: string): Promise<any> {
+        await this.postsService.delete(_id);
+        return { message: 'Post eliminado correctamente' };
+    }
 }

@@ -168,7 +168,8 @@ export class Publications implements OnInit {
     this.uploadPublications();
   }
 
-  manageDelete(id: number) {
+  manageDelete(id: string) {
+    console.log("🔵 Eliminando post con id:", id);
     this.pubService.deletePublication(id).subscribe(() => this.uploadPublications());
   }
 

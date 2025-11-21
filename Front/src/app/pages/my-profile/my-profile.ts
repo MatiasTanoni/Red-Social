@@ -5,7 +5,8 @@ import { PublicationComponent } from '../publications/components/publication-com
 import { Spinner } from '../../components/spinner/spinner';
 
 export interface Publication {
-  _id: number;
+  _id: string;
+  idUser: string;
   image_url: string;
   username: string;
   content: string;
@@ -81,7 +82,7 @@ export class MyProfile {
     this.uploadPublicationsByUser();
   }
 
-  manageDelete(id: number) {
+  manageDelete(id: string) {
     this.pubService.deletePublication(id).subscribe(() => this.uploadPublicationsByUser());
   }
 }
