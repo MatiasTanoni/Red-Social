@@ -140,10 +140,19 @@ export class Register implements OnInit {
         }
       }
       this.cdr.detectChanges();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error en el registro:', error);
-      this.registerError = 'Ocurrió un error inesperado durante el registro.';
+
+      if (error?.error?.message === 'User already registered') {
+        this.registerError = 'El usuario ya está registrado.';
+      } else if (error?.error?.message) {
+        this.registerError = error.error.message;
+      } else {
+        this.registerError = 'Ocurrió un error inesperado durante el registro.';
+      }
+
       this.cdr.detectChanges();
     }
+
   }
 }
