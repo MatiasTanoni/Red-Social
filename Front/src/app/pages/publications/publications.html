@@ -4,36 +4,66 @@
 
         <div class="lg:col-span-4 space-y-4 overflow-y-auto pr-1 custom-scrollbar min-h-0 no-scrollbar">
 
-            <div class="bg-gray-900/80 backdrop-blur-xl shadow-lg border-2 border-gray-700 w-full rounded-xl p-4">
-                <h3 class="text-lg font-semibold mb-4 bg-gray-900/60 rounded px-2 py-1 inline-block">Crear publicación
-                </h3>
-                <div class="flex items-start gap-4">
-                    <img [src]="image_url || 'assets/default-avatar.png'"
-                        class="w-12 h-12 rounded-full object-cover shadow-md" alt="Avatar" />
-                    <div class="flex-1">
-                        <textarea [(ngModel)]="text" placeholder="¿Qué está pasando?" maxlength="140" rows="4"
-                            class="bg-gray-800/40 w-full text-white resize-none outline-none text-base placeholder-gray-400 rounded-xl p-3 border border-gray-700 focus:border-white transition">
-                        </textarea>
+            <div
+                class="bg-gray-900/60 backdrop-blur-md shadow-lg border-2 border-gray-700 w-full rounded-xl overflow-hidden hidden lg:block">
+                <div class="p-4 flex gap-4">
+                    <div class="shrink-0">
+                        <img [src]="image_url || 'assets/default-avatar.png'"
+                            class="w-11 h-11 rounded-full object-cover ring-2 ring-gray-800" alt="Avatar" />
                     </div>
-                    <!-- Previsualización -->
-                    @if (previewImage) {
-                    <div class="mt-3">
-                        <img [src]="previewImage" class="max-h-48 rounded-xl border border-gray-700" />
+
+                    <div class="flex-1 min-w-0">
+                        <textarea [(ngModel)]="text" placeholder="¿Qué está pasando?" maxlength="140" rows="3"
+                            class="w-full bg-transparent text-lg text-white placeholder-gray-500 p-2 border-none focus:ring-0 p-0 resize-none leading-relaxed"></textarea>
+
+                        @if (previewImage) {
+                        <div class="relative mt-3 group">
+                            <img [src]="previewImage"
+                                class="w-full max-h-80 object-cover rounded-xl border border-gray-700/50 shadow-lg" />
+                            <button (click)="previewImage = null"
+                                class="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white rounded-full p-1 transition opacity-0 group-hover:opacity-100 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        }
                     </div>
-                    }
-                    <!-- Botón para elegir imagen -->
-                    <label
-                        class="cursor-pointer bg-gray-800/40 hover:bg-gray-700 px-3 py-2 rounded-xl border border-gray-700 text-sm">
-                        Subir imagen
-                        <input type="file" accept="image/*" (change)="onFileSelected($event)" class="hidden">
-                    </label>
                 </div>
-                <div class="flex items-center justify-end mt-3">
-                    <button
-                        class="bg-white text-black hover:bg-gray-200 px-5 py-2 rounded-full font-semibold disabled:opacity-50 transition shadow-md w-full sm:w-auto  cursor-pointer"
-                        [disabled]="!text || text.trim().length === 0" (click)="post()">
-                        Publicar
-                    </button>
+
+                <div class="px-4 pb-3 flex items-center justify-between border-t border-gray-800/50 pt-3">
+
+                    <div class="flex items-center gap-2">
+                        <label
+                            class="cursor-pointer text-blue-400 hover:bg-blue-500/10 p-2 rounded-full transition-colors group"
+                            title="Subir imagen">
+                            <input type="file" accept="image/*" (change)="onFileSelected($event)" class="hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:text-blue-300 transition"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </label>
+
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        @if(text) {
+                        <span class="text-xs font-medium transition-colors" [class.text-gray-500]="text.length < 120"
+                            [class.text-yellow-500]="text.length >= 120 && text.length < 140"
+                            [class.text-red-500]="text.length >= 140">
+                            {{ 140 - text.length }}
+                        </span>
+                        }
+
+                        <button (click)="post()" [disabled]="!text || text.trim().length === 0"
+                            class="px-4 py-2 text-black rounded-full bg-white hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium shadow text-sm sm:text-base cursor-pointer">
+                            Publicar
+                        </button>
+                    </div>
                 </div>
             </div>
 
