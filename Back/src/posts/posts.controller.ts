@@ -109,6 +109,7 @@ export class PostsController {
         @Body() body: { idUser: string; username: string; text: string }
     ) {
         console.log("🔵 Enviando comentario:", body);
+        console.log("🔵 IDUser:", body.idUser);
         return this.postsService.addComment(id, body);
     }
 

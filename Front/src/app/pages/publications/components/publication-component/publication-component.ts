@@ -13,6 +13,7 @@ import { Publication, Comment } from '../../../../models/publication.model';
 export class PublicationComponent {
   @Input() publication!: Publication;
   @Input() idUser!: string;
+  @Input() username!: string;
   @Input() itsOwnProfile: boolean = false;
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<string>();
@@ -37,15 +38,16 @@ export class PublicationComponent {
   sendComment() {
     if (!this.commentText.trim()) return;
 
-    this.pubService.addComment(this.publication._id, {
-      idUser: this.idUser,
-      username: this.publication.username,
-      text: this.commentText.trim()
-    }).subscribe((updated: Publication) => {
+    this.pubService.addComment(this.publication._id,
+      {
+        idUser: this.idUser,
+        username: this.username,
+        text: this.commentText.trim()
+      }).subscribe((updated: Publication) => {
 
-      this.publication.comments = updated.comments;
-      this.commentText = '';
-    });
+        this.publication.comments = updated.comments;
+        this.commentText = '';
+      });
   }
 
 }
