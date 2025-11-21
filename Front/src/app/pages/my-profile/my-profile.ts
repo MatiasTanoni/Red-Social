@@ -12,6 +12,7 @@ export interface Publication {
   date: Date;
   likes: Array<string>;
   iLike: boolean;
+  imagePost: string;
 }
 
 @Component({

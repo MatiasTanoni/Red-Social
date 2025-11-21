@@ -18,7 +18,7 @@ export class PostsService {
         image_url: string;
         username: string;
         content: string;
-        // image?: string;
+        imagePost: string;
     }) {
         try {
 
@@ -34,7 +34,7 @@ export class PostsService {
                 image_url: data.image_url,
                 username: data.username,
                 content: data.content,
-                // image: data.image,
+                imagePost: data.imagePost,
                 // likes: [],
                 // comments: [],
                 date: new Date(),

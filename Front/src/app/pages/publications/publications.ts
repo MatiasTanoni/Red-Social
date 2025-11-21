@@ -6,6 +6,9 @@ import { signal } from '@angular/core';
 import { Auth } from '../../service/auth';
 import { Spinner } from "../../components/spinner/spinner";
 import { Router } from '@angular/router';
+import { CloudinaryService } from '../../service/cloudinary/cloudinary';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-publications',
@@ -27,14 +30,18 @@ export class Publications implements OnInit {
   username: any;
   firstName: any;
   lastName: any;
-  image_url: any; 
+  image_url: any;
   text: string = '';
+  imagePost: string = '';
+  previewImage: string | null = null;
+  selectedImage: File | null = null;
 
   constructor(
     private pubService: PublicationsService,
     private auth: Auth,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private cloudinary: CloudinaryService
   ) { }
 
   ngOnInit() {
@@ -60,6 +67,17 @@ export class Publications implements OnInit {
     this.uploadPublications();
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.selectedImage = file;
+
+    // Previsualización
+    const reader = new FileReader();
+    reader.onload = () => this.previewImage = reader.result as string;
+    reader.readAsDataURL(file);
+  }
 
   uploadPublications() {
     this.loading = true;
@@ -96,25 +114,52 @@ export class Publications implements OnInit {
     }
   }
 
-  post(): void {
-    if (!this.text || !this.text.trim()) return;
+  async post(): Promise<void> {
+    if (!this.text.trim() && !this.selectedImage) return;
 
-    this.pubService.createPost({
-      idUser: this.idUser,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      username: this.username,
-      content: this.text,
-      image_url : this.image_url
-    }).subscribe({
-      next: (res) => {
-        this.text = '';
-        this.page = 1;
-        this.uploadPublications();
-      },
-      error: (err) => console.error(err)
-    });
+    try {
+      this.loading = true;
+
+      // 1. Subir imagen si existe
+      let imagePostUrl: string = '';
+
+      if (this.selectedImage) {
+        const uploadResponse = await firstValueFrom(
+          this.cloudinary.uploadFile(this.selectedImage)
+        );
+        imagePostUrl = uploadResponse.secure_url;
+      }
+
+      // 2. Crear el post
+      const payload = {
+        idUser: this.idUser,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        username: this.username,
+        content: this.text,
+        image_url: this.image_url,   // Imagen del perfil
+        imagePost: imagePostUrl      // Imagen del post
+      };
+
+      console.log("🔵 Enviando payload:", payload);
+
+      await firstValueFrom(this.pubService.createPost(payload));
+
+      // 3. Reset
+      this.text = '';
+      this.selectedImage = null;
+      this.previewImage = null;
+      this.page = 1;
+
+      this.uploadPublications();
+
+    } catch (err) {
+      console.error("❌ Error al crear post:", err);
+    } finally {
+      this.loading = false;
+    }
   }
+
 
   manageLike() {
     this.uploadPublications();

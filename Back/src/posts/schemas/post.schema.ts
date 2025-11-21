@@ -11,7 +11,7 @@ export class Post extends Document {
     @Prop({ required: true }) username: string;
     @Prop() content: string;
     @Prop() likes: Array<string>;
-    // @Prop() image?: string;
+    @Prop() imagePost: string;
 
     // @Prop({
     //     type: [{
