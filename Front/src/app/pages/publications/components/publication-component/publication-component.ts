@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { PublicationsService } from '../../../../service/publications-service';
 import { FormsModule } from '@angular/forms';
 import { Publication, Comment } from '../../../../models/publication.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-publication',
@@ -18,7 +19,7 @@ export class PublicationComponent {
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<string>();
 
-  constructor(private pubService: PublicationsService) { }
+  constructor(private pubService: PublicationsService, private cdr: ChangeDetectorRef) { }
 
   onLike(id: string, idUser: string) {
     this.pubService.toggleLike(id, idUser).subscribe((updatedPub: Publication) => {
@@ -47,7 +48,7 @@ export class PublicationComponent {
 
         this.publication.comments = updated.comments;
         this.commentText = '';
+        this.cdr.detectChanges();
       });
   }
-
 }
