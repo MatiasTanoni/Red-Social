@@ -49,6 +49,30 @@
             }
         </button>
 
+        <div class="mt-4 border-t border-gray-700 pt-3">
+
+            <!-- Lista de comentarios -->
+            @for (c of publication.comments; track $index) {
+            <div class="mb-2">
+                <p class="text-sm">
+                    <span class="font-bold text-blue-400">{{ c.username }}</span>
+                    {{ c.text }}
+                </p>
+            </div>
+            }
+
+            <!-- Input para comentar -->
+            <div class="flex gap-2 mt-3">
+                <input [(ngModel)]="commentText" placeholder="Escribe un comentario..."
+                    class="w-full bg-gray-800/60 px-3 py-1.5 rounded-lg text-sm border border-gray-700">
+
+                <button (click)="sendComment()" [disabled]="!commentText.trim()"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 rounded-lg text-sm">
+                    Comentar
+                </button>
+            </div>
+        </div>
+
         @if (itsOwnProfile) {
         <button (click)="onDelete()"
             class="flex items-center gap-1 text-xs font-medium text-gray-400 hover:text-red-400 transition-colors px-2 py-1 rounded hover:bg-red-500/10">

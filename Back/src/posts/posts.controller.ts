@@ -102,4 +102,14 @@ export class PostsController {
         await this.postsService.delete(_id);
         return { message: 'Post eliminado correctamente' };
     }
+
+    @Post(':id/comment')
+    addComment(
+        @Param('id') id: string,
+        @Body() body: { idUser: string; username: string; text: string }
+    ) {
+        console.log("🔵 Enviando comentario:", body);
+        return this.postsService.addComment(id, body);
+    }
+
 }

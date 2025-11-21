@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { PublicationsService, Publication } from '../../service/publications-service';
+import { PublicationsService } from '../../service/publications-service';
 import { PublicationComponent } from './components/publication-component/publication-component';
 import { FormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
@@ -8,6 +8,7 @@ import { Spinner } from "../../components/spinner/spinner";
 import { Router } from '@angular/router';
 import { CloudinaryService } from '../../service/cloudinary/cloudinary';
 import { firstValueFrom } from 'rxjs';
+import { Publication, Comment } from '../../models/publication.model';
 
 
 @Component({

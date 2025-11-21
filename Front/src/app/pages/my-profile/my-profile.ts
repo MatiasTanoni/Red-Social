@@ -3,18 +3,20 @@ import { PublicationsService } from '../../service/publications-service';
 import { Auth } from '../../service/auth';
 import { PublicationComponent } from '../publications/components/publication-component/publication-component';
 import { Spinner } from '../../components/spinner/spinner';
+import { Publication, Comment } from '../../models/publication.model';
 
-export interface Publication {
-  _id: string;
-  idUser: string;
-  image_url: string;
-  username: string;
-  content: string;
-  date: Date;
-  likes: Array<string>;
-  iLike: boolean;
-  imagePost: string;
-}
+// export interface Publication {
+//   _id: string;
+//   idUser: string;
+//   image_url: string;
+//   username: string;
+//   content: string;
+//   date: Date;
+//   likes: Array<string>;
+//   // iLike: boolean;
+//   comments: Comment[];
+//   imagePost?: string;
+// }
 
 @Component({
   selector: 'app-my-profile',

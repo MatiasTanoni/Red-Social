@@ -3,18 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { strict } from 'assert';
-
-export interface Publication {
-  _id: string;
-  idUser: string;
-  username: string;
-  content: string;
-  date: Date;
-  likes: Array<string>;
-  iLike: boolean;
-  image_url: string;
-  imagePost: string;
-}
+import { Publication, Comment } from '../models/publication.model';
 
 @Injectable({ providedIn: 'root' })
 export class PublicationsService {
@@ -32,7 +21,6 @@ export class PublicationsService {
     console.log("🔵 Obteniendo publicaciones para el usuario con ID:", userId);
     return this.http.get<Publication[]>(`${this.apiUrl}/user/${userId}`);
   }
-
 
   createPost(data: {
     idUser: string;
@@ -60,4 +48,10 @@ export class PublicationsService {
   deletePublication(_id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${_id}`);
   }
+
+  addComment(id: string, comment: any): Observable<Publication> {
+    console.log("🔵 Enviando comentario:", comment);
+    return this.http.post<Publication>(`${this.apiUrl}/${id}/comment`, comment);
+  }
+
 }

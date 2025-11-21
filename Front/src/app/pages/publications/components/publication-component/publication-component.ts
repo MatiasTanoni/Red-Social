@@ -1,13 +1,14 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Publication } from '../../../../service/publications-service';
+import { Component, Input, Output, EventEmitter, importProvidersFrom } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { PublicationsService } from '../../../../service/publications-service';
+import { FormsModule } from '@angular/forms';
+import { Publication, Comment } from '../../../../models/publication.model';
 
 @Component({
   selector: 'app-publication',
   templateUrl: './publication-component.html',
   styleUrls: ['./publication-component.css'],
-  imports: [DatePipe]
+  imports: [DatePipe, FormsModule]
 })
 export class PublicationComponent {
   @Input() publication!: Publication;
@@ -30,4 +31,21 @@ export class PublicationComponent {
   onDelete() {
     this.delete.emit(this.publication._id);
   }
+
+  commentText: string = '';
+
+  sendComment() {
+    if (!this.commentText.trim()) return;
+
+    this.pubService.addComment(this.publication._id, {
+      idUser: this.idUser,
+      username: this.publication.username,
+      text: this.commentText.trim()
+    }).subscribe((updated: Publication) => {
+
+      this.publication.comments = updated.comments;
+      this.commentText = '';
+    });
+  }
+
 }

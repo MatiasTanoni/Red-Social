@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-
 @Schema()
 export class Post extends Document {
     @Prop() idUser: string;
@@ -13,43 +12,24 @@ export class Post extends Document {
     @Prop() likes: Array<string>;
     @Prop() imagePost: string;
 
-    // @Prop({
-    //     type: [{
-    //         idUser: String,
-    //         username: String,
-    //         firstName: String,
-    //         lastName: String,
-    //         profileImage: String
-    //     }],
-    //     default: [],
-    // })
+    @Prop({
+        type: [
+            {
+                idUser: String,
+                username: String,
+                text: String,
+                date: Date,
+            }
+        ],
+        default: []
+    })
+    comments: {
+        idUser: string;
+        username: string;
+        text: string;
+        date: Date;
+    }[];
 
-    // @Prop({
-    //     type: [{
-    //         idUser: String,
-    //         username: String,
-    //         firstName: String,
-    //         lastName: String,
-    //         profileImage: String,
-    //         content: String,
-    //         edited: Boolean,
-    //         show: Boolean,
-    //         date: Date
-    //     }],
-    //     default: [],
-    // })
-    // comments: {
-    //     _id: any;
-    //     idUser: string;
-    //     username: string;
-    //     firstName: string;
-    //     lastName: string;
-    //     profileImage: string;
-    //     content: string;
-    //     edited: boolean;
-    //     show: boolean;
-    //     date: Date;
-    // }[];
 
     @Prop({ default: Date.now })
     date: Date;
