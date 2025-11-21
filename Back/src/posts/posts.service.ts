@@ -53,29 +53,44 @@ export class PostsService {
         limit: number = 10,
         orderBy: 'fecha' | 'likes' = 'fecha',
         isAdmin: string,
-    ): Promise<Post[]> {
+    ): Promise<any[]> {
         try {
+            // Fix: convertir query params a número
+            page = Number(page);
+            limit = Number(limit);
+            const skip = (page - 1) * limit;
 
             const filter = isAdmin === 'true' ? {} : { show: true };
 
-            const sort: any = {};
-            if (orderBy === 'fecha') sort.date = -1;
-            if (orderBy === 'likes') sort.likes = -1;
+            if (orderBy === 'fecha') {
+                return await this.postModel
+                    .find(filter)
+                    .sort({ date: -1 })
+                    .skip(skip)
+                    .limit(limit)
+                    .exec();
+            }
 
-            const posts = await this.postModel
-                .find(filter)
-                .sort(sort)
-                .skip((page - 1) * limit)
-                .limit(limit)
-                .exec();
-
-            return posts;
+            // Ordenar por cantidad de likes
+            return await this.postModel.aggregate([
+                { $match: filter },
+                {
+                    $addFields: {
+                        likesCount: { $size: { $ifNull: ['$likes', []] } }
+                    }
+                },
+                { $sort: { likesCount: -1, date: -1 } },
+                { $skip: skip },
+                { $limit: limit },
+            ]).exec();
 
         } catch (error) {
             console.error('Error al obtener posts:', error);
             throw new InternalServerErrorException('Error al obtener los posts');
         }
     }
+
+
 
     async findByUser(userId: string) {
         try {
