@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { PostsModule } from './posts/posts.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_URI || ''),
-    AuthModule, PostsModule,
+    AuthModule, PostsModule, StatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
