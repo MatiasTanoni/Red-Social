@@ -32,6 +32,13 @@
                 Mi Perfil
             </a>
         </li>
+        <li>
+            <a [routerLink]="!blockNavegation ? '/stats' : null"
+                routerLinkActive="border-b-2 border-white font-semibold text-white"
+                class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+                Estadísticas
+            </a>
+        </li>
 
         @if (!user) {
         <li>
@@ -66,6 +73,13 @@
             routerLinkActive="border-b-2 border-white font-semibold text-white"
             class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
             Mi Perfil
+        </a>
+    </li>
+    <li>
+        <a [routerLink]="!blockNavegation ? '/stats' : null"
+            routerLinkActive="border-b-2 border-white font-semibold text-white"
+            class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+            Estadísticas
         </a>
     </li>
 
