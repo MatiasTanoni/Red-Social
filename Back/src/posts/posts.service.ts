@@ -142,14 +142,14 @@ export class PostsService {
 
     async addComment(
         id: string,
-        comment: { idUser: string; username: string; text: string }
+        comment: { image_url: string; idUser: string; username: string; text: string }
     ) {
         const post = await this.postModel.findById(id);
 
         if (!post) {
             throw new NotFoundException(`Post con id ${id} no encontrado`);
         }
-
+        console.log("🔵 Comentario añadido:", comment);
         post.comments.push({
             ...comment,
             date: new Date()

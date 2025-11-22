@@ -15,6 +15,7 @@ export class PublicationComponent {
   @Input() publication!: Publication;
   @Input() idUser!: string;
   @Input() username!: string;
+  @Input() image_url!: string;
   @Input() itsOwnProfile: boolean = false;
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<string>();
@@ -41,6 +42,7 @@ export class PublicationComponent {
 
     this.pubService.addComment(this.publication._id,
       {
+        image_url: this.image_url,
         idUser: this.idUser,
         username: this.username,
         text: this.commentText.trim()

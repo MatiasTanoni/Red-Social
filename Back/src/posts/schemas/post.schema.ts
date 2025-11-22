@@ -15,20 +15,24 @@ export class Post extends Document {
     @Prop({
         type: [
             {
-                idUser: String,
-                username: String,
-                text: String,
-                date: Date,
+                idUser: { type: String, required: true },
+                username: { type: String, required: true },
+                text: { type: String, required: true },
+                image_url: { type: String, required: false },
+                date: { type: Date, default: Date.now },
             }
         ],
         default: []
+
     })
     comments: {
         idUser: string;
         username: string;
         text: string;
+        image_url?: string;
         date: Date;
     }[];
+
 
 
     @Prop({ default: Date.now })

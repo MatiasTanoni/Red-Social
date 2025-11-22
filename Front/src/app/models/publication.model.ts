@@ -4,12 +4,12 @@ export interface Comment {
     username: string;
     firstName: string;
     lastName: string;
-    profileImage: string;
+    image_url: string;
     content: string;
     edited: boolean;
     show: boolean;
     date: Date;
-    text: string;    
+    text: string;
 }
 
 export interface Publication {
