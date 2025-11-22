@@ -5,13 +5,13 @@
     <div class="w-full max-w-md mb-6 pt-6 flex justify-center space-x-4">
         <button (click)="show = 'login'" [class.bg-gray-700]="show === 'login'" [class.text-white]="show === 'login'"
             [class.bg-gray-800]="show !== 'login'" [class.text-gray-400]="show !== 'login'"
-            class="px-4 py-2 rounded-lg transition-all duration-200 hover:bg-gray-700">
+            class="px-4 py-2 rounded-lg transition-all duration-200 hover:bg-gray-700 cursor-pointer">
             Login
         </button>
         <button (click)="show = 'register'" [class.bg-gray-700]="show === 'register'"
             [class.text-white]="show === 'register'" [class.bg-gray-800]="show !== 'register'"
             [class.text-gray-400]="show !== 'register'"
-            class="px-4 py-2 rounded-lg transition-all duration-200 hover:bg-gray-700">
+            class="px-4 py-2 rounded-lg transition-all duration-200 hover:bg-gray-700 cursor-pointer">
             Registro
         </button>
     </div>

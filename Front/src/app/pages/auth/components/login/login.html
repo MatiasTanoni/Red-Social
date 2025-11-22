@@ -53,7 +53,7 @@
 
     <button type="submit" [disabled]="formularioLogin.invalid" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-2xl shadow-lg
     transition-transform duration-200 transform hover:-translate-y-1 hover:shadow-gray-700/50
-    disabled:opacity-50 disabled:cursor-not-allowed">
+    disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
         Ingresar
     </button>
 
@@ -63,7 +63,7 @@
     <div class="mt-6 space-y-3">
         @for (user of quickUsers; track user.email) {
         <button (click)="onQuickLogin(user)"
-            class="w-full flex flex-col bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-xl shadow transition">
+            class="w-full flex flex-col bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-xl shadow transition cursor-pointer">
             Ingresar como {{ user.label }}
         </button>
         }

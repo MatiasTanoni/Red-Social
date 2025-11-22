@@ -4,12 +4,13 @@ import { PublicationsService } from '../../../../service/publications-service';
 import { FormsModule } from '@angular/forms';
 import { Publication, Comment } from '../../../../models/publication.model';
 import { ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-publication',
   templateUrl: './publication-component.html',
   styleUrls: ['./publication-component.css'],
-  imports: [DatePipe, FormsModule]
+  imports: [DatePipe, FormsModule, CommonModule]
 })
 export class PublicationComponent {
   @Input() publication!: Publication;
@@ -35,6 +36,19 @@ export class PublicationComponent {
     this.delete.emit(this.publication._id);
   }
 
+  commentsToShow = 3;
+
+  get visibleComments() {
+    return this.publication.comments.slice(0, this.commentsToShow);
+  }
+
+  loadMoreComments() {
+    this.commentsToShow += 3;
+    this.cdr.detectChanges();
+  }
+  showLessComments() {
+    this.commentsToShow = 3;
+  }
   commentText: string = '';
 
   sendComment() {
