@@ -10,7 +10,6 @@ import { CloudinaryService } from '../../service/cloudinary/cloudinary';
 import { firstValueFrom } from 'rxjs';
 import { Publication, Comment } from '../../models/publication.model';
 
-
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.html',
@@ -26,7 +25,7 @@ export class Publications implements OnInit {
 
   loading = false;
   user = signal<any | boolean>(false);
-
+  selectedPublication: any = null;
   idUser = '';
   username: any;
   firstName: any;

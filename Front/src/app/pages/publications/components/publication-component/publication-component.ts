@@ -63,7 +63,6 @@ export class PublicationComponent {
         username: this.username,
         text: this.commentText.trim()
       }).subscribe((updated: Publication) => {
-
         this.publication.comments = updated.comments;
         this.commentText = '';
         this.cdr.detectChanges();
