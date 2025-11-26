@@ -61,8 +61,8 @@
                             hover:bg-gray-800/60 hover:border-gray-600 hover:shadow-lg transition-all duration-300">
 
             <div class="rounded-lg overflow-hidden">
-                <app-publication [publication]="p" [idUser]="idUser" [image_url]="image_url" (like)="manageLike()"
-                    (delete)="manageDelete($event)">
+                <app-publication [publication]="p" [idUser]="idUser" [image_url]="image_url"
+                    [itsOwnProfile]="p.idUser === idUser" (delete)="manageDelete($event)">
                 </app-publication>
             </div>
         </div>
