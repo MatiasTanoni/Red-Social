@@ -54,4 +54,12 @@ export class PublicationsService {
     return this.http.post<Publication>(`${this.apiUrl}/${id}/comment`, comment);
   }
 
+  editComment(publicationId: string, commentId: string, newText: string) {
+    console.log("🔵 Enviando comentario:", commentId, newText);
+    return this.http.put<Publication>(
+      `${this.apiUrl}/${publicationId}/comment/${commentId}`,
+      { text: newText }
+    );
+  }
+
 }

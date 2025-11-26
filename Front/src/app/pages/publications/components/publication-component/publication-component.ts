@@ -20,6 +20,8 @@ export class PublicationComponent {
   @Input() itsOwnProfile: boolean = false;
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<string>();
+  editingCommentId: string | null = null;
+  editingCommentText: string = '';
 
   constructor(private pubService: PublicationsService, private cdr: ChangeDetectorRef) { }
 
@@ -67,4 +69,29 @@ export class PublicationComponent {
         this.cdr.detectChanges();
       });
   }
+
+  editComment(publicationId: string, commentId: string | undefined, currentText: string) {
+    if (!commentId) return;
+
+    this.editingCommentId = commentId;      // activar modo edición
+    this.editingCommentText = currentText;  // cargar el texto actual
+  }
+  saveEditedComment(publicationId: string) {
+    this.pubService.editComment(
+      publicationId,
+      this.editingCommentId!,
+      this.editingCommentText.trim()
+    ).subscribe((updated: Publication) => {
+      this.publication.comments = updated.comments;
+
+      this.editingCommentId = null;
+      this.editingCommentText = '';
+    });
+  }
+
+  cancelEdit() {
+    this.editingCommentId = null;
+    this.editingCommentText = '';
+  }
+
 }

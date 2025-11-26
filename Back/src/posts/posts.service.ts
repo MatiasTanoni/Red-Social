@@ -159,4 +159,25 @@ export class PostsService {
         return post;
     }
 
+    async editComment(publicationId: string, commentId: string, newText: string) {
+        const publication = await this.postModel.findById(publicationId);
+
+        if (!publication) {
+            throw new NotFoundException('Publicación no encontrada');
+        }
+
+        const comment = publication.comments.id(commentId);
+
+        if (!comment) {
+            throw new NotFoundException('Comentario no encontrado');
+        }
+
+        comment.text = newText;
+        comment.date = new Date(); // opcional si querés actualizar la fecha
+
+        await publication.save();
+
+        return publication;
+    }
+
 }

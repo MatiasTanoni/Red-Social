@@ -106,11 +106,21 @@ export class PostsController {
     @Post(':id/comment')
     addComment(
         @Param('id') id: string,
-        @Body() body: {  image_url: string; idUser: string; username: string; text: string }
+        @Body() body: { image_url: string; idUser: string; username: string; text: string }
     ) {
         console.log("🔵 Enviando comentario:", body);
         console.log("🔵 IDUser:", body.idUser);
         return this.postsService.addComment(id, body);
+    }
+
+    @Put(':id/comment/:commentId')
+    async editComment(
+        @Param('id') publicationId: string,
+        @Param('commentId') commentId: string,
+        @Body('text') newText: string,
+    ) {
+        console.log("🔵 Enviando comentario:", publicationId, commentId, newText);
+        return this.postsService.editComment(publicationId, commentId, newText);
     }
 
 }

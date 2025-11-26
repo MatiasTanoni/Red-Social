@@ -80,10 +80,37 @@
                         <span class="font-bold text-blue-400 text-sm mb-0.5 hover:underline cursor-pointer">
                             {{ c.username }}
                         </span>
+                        <!-- Si NO estoy editando este comentario -->
+                        @if (editingCommentId !== c._id) {
                         <p class="text-sm text-gray-200 leading-snug break-words">
                             {{ c.text }}
                         </p>
+                        }
+
+                        <!-- Si ESTOY editando este comentario -->
+                        @else {
+                        <input [(ngModel)]="editingCommentText" class="bg-gray-700 text-white px-3 py-2 rounded-lg w-full border border-gray-600
+                  focus:border-blue-400 outline-none" />
+
+                        <div class="flex gap-2 mt-2">
+                            <button (click)="saveEditedComment(publication._id)"
+                                class="px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm">
+                                Guardar
+                            </button>
+
+                            <button (click)="cancelEdit()"
+                                class="px-3 py-1 bg-gray-600 text-white rounded-lg hover:bg-gray-700 text-sm">
+                                Cancelar
+                            </button>
+                        </div>
+                        }
+
                     </div>
+                </div>
+                <div>
+                    <button (click)="editComment(publication._id, c._id, c.text)"
+                        class="text-gray-500 hover:text-red-400 transition-colors p-2 rounded-full hover:bg-red-500/10 cursor-pointer">
+                        EDITAR</button>
                 </div>
             </div>
             }
