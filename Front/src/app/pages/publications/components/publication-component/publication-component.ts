@@ -86,6 +86,7 @@ export class PublicationComponent {
 
       this.editingCommentId = null;
       this.editingCommentText = '';
+      this.cdr.detectChanges();
     });
   }
 
