@@ -1,18 +1,100 @@
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-gray-900 p-6 md:p-10">
 
-    <!-- Gráfico 1: Publicaciones por usuario -->
-    <div class="card">
-        <canvas id="postsByUserChart"></canvas>
+    <h1 class="text-3xl font-bold text-white mb-8 tracking-wide border-l-4 border-blue-500 pl-4">
+        Panel de Estadísticas
+    </h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+        <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+            <div class="p-6 border-b border-gray-700 bg-gray-800/50">
+                <h3 class="text-lg font-semibold text-gray-100 mb-4 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-blue-500 rounded-sm"></span>
+                    Publicaciones por Usuario
+                </h3>
+
+                <div class="flex flex-col space-y-3 text-sm">
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-400 font-medium">Desde:</label>
+                        <input type="date" [(ngModel)]="postsFrom"
+                            class="bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all [color-scheme:dark]">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-400 font-medium">Hasta:</label>
+                        <input type="date" [(ngModel)]="postsTo"
+                            class="bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all [color-scheme:dark]">
+                    </div>
+                    <button (click)="loadPostsByUser()"
+                        class="mt-2 w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white py-2 rounded-lg transition duration-300 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-blue-500/20 cursor-pointer">
+                        Actualizar Gráfico
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-4 flex-grow relative h-64 bg-gray-800">
+                <canvas id="postsByUserChart"></canvas>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+            <div class="p-6 border-b border-gray-700 bg-gray-800/50">
+                <h3 class="text-lg font-semibold text-gray-100 mb-4 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-green-500 rounded-sm"></span>
+                    Total de Comentarios
+                </h3>
+
+                <div class="flex flex-col space-y-3 text-sm">
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-400 font-medium">Desde:</label>
+                        <input type="date" [(ngModel)]="commentsCountFrom"
+                            class="bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all [color-scheme:dark]">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-400 font-medium">Hasta:</label>
+                        <input type="date" [(ngModel)]="commentsCountTo"
+                            class="bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all [color-scheme:dark]">
+                    </div>
+                    <button (click)="loadCommentsCount()"
+                        class="mt-2 w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white py-2 rounded-lg transition duration-300 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-green-500/20 cursor-pointer">
+                        Actualizar Gráfico
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-4 flex-grow relative h-64 bg-gray-800">
+                <canvas id="commentsCountChart"></canvas>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+            <div class="p-6 border-b border-gray-700 bg-gray-800/50">
+                <h3 class="text-lg font-semibold text-gray-100 mb-4 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-purple-500 rounded-sm"></span>
+                    Comentarios por Post
+                </h3>
+
+                <div class="flex flex-col space-y-3 text-sm">
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-400 font-medium">Desde:</label>
+                        <input type="date" [(ngModel)]="commentsPerPostFrom"
+                            class="bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all [color-scheme:dark]">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-400 font-medium">Hasta:</label>
+                        <input type="date" [(ngModel)]="commentsPerPostTo"
+                            class="bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all [color-scheme:dark]">
+                    </div>
+                    <button (click)="loadCommentsPerPost()"
+                        class="mt-2 w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white py-2 rounded-lg transition duration-300 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-purple-500/20 cursor-pointer">
+                        Actualizar Gráfico
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-4 flex-grow relative h-64 bg-gray-800">
+                <canvas id="commentsPerPostChart"></canvas>
+            </div>
+        </div>
+
     </div>
-
-    <!-- Gráfico 2: Cantidad de comentarios -->
-    <div class="card">
-        <canvas id="commentsCountChart"></canvas>
-    </div>
-
-    <!-- Gráfico 3: Comentarios por publicación -->
-    <div class="card">
-        <canvas id="commentsPerPostChart"></canvas>
-    </div>
-
 </div>

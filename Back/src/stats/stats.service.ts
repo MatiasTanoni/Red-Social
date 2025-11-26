@@ -22,12 +22,15 @@ export class StatsService {
   }
 
   async getCommentsCount(from: Date, to: Date) {
-    return this.postModel.aggregate([
+    const result = await this.postModel.aggregate([
       { $unwind: "$comments" },
       { $match: { "comments.date": { $gte: from, $lte: to } } },
       { $count: "totalComments" }
     ]);
+
+    return { totalComments: result[0]?.totalComments || 0 };
   }
+
 
   async getCommentsPerPost(from: Date, to: Date) {
     return this.postModel.aggregate([
