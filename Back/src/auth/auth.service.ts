@@ -66,27 +66,24 @@ export class AuthService {
 
     const savedUser = await newUser.save();
 
-    const payload = {
-      sub: savedUser._id,
-      username: savedUser.username,
-      email: savedUser.email
-    };
-    const token = this.jwtService.sign(payload);
-
     return {
-      token,
-      id: savedUser._id,
-      username: savedUser.username,
-      email: savedUser.email,
-      name: savedUser.name,
-      lastName: savedUser.lastName,
-      birthDate: savedUser.birthDate,
-      description: savedUser.description || "",
-      image_url: savedUser.image_url || "",
-      show: savedUser.show,
-      admin: savedUser.admin
+      success: true,
+      message: "Usuario creado correctamente",
+      user: {
+        id: savedUser._id,
+        username: savedUser.username,
+        email: savedUser.email,
+        name: savedUser.name,
+        lastName: savedUser.lastName,
+        birthDate: savedUser.birthDate,
+        description: savedUser.description || "",
+        image_url: savedUser.image_url || "",
+        show: savedUser.show,
+        admin: savedUser.admin
+      }
     };
   }
+
 
   // LOGIN
   async login(usernameOrEmail: string, password: string) {
