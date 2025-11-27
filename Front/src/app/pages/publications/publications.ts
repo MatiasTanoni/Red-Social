@@ -23,6 +23,7 @@ export class Publications implements OnInit {
   limit = 3;
   orderBy: 'fecha' | 'likes' = 'fecha';
 
+  admin: any;
   loading = false;
   user = signal<any | boolean>(false);
   selectedPublication: any = null;
@@ -56,11 +57,13 @@ export class Publications implements OnInit {
 
     // Setear usuario si existe
     this.user.set(currentUser);
+    console.log("Usuario:", currentUser);
     this.username = currentUser.username;
     this.firstName = currentUser.name;
     this.lastName = currentUser.lastName;
     this.idUser = currentUser.id;
     this.image_url = currentUser.image_url;
+    this.admin = currentUser.admin;
 
     // Cargar publicaciones
     this.page = 1;

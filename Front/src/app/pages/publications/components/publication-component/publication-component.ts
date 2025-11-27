@@ -18,6 +18,7 @@ export class PublicationComponent {
   @Input() username!: string;
   @Input() image_url!: string;
   @Input() itsOwnProfile: boolean = false;
+  @Input() admin: boolean = false;
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<string>();
   editingCommentId: string | null = null;
@@ -58,7 +59,7 @@ export class PublicationComponent {
 
     this.pubService.addComment(this.publication._id,
       {
-        edited : false,
+        edited: false,
         image_url: this.image_url,
         idUser: this.idUser,
         username: this.username,

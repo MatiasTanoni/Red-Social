@@ -25,4 +25,5 @@ export interface Publication {
     imagePost?: string;
     comments: Comment[];
     show: boolean;
+    admin?: boolean;
 }

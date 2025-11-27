@@ -29,8 +29,8 @@ export class User {
     @Prop()
     image_url?: string;
 
-    // @Prop({ default: "false" })
-    // perfil: string;
+    @Prop({ default: false })
+    admin: boolean;
 
     @Prop({ default: Date.now })
     createdAt?: Date;

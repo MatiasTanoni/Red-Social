@@ -46,7 +46,8 @@ export class AuthService {
       birthDate: savedUser.birthDate,
       description: savedUser.description || "",
       image_url: savedUser.image_url || "",
-      show: savedUser.show
+      show: savedUser.show,
+      admin : savedUser.admin
     };
   }
 
@@ -82,7 +83,8 @@ export class AuthService {
       birthDate: user.birthDate,
       description: user.description || "",
       image_url: user.image_url || "",
-      show: user.show
+      show: user.show,
+      admin : user.admin
     };
   }
 
