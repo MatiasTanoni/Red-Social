@@ -51,6 +51,43 @@ export class AuthService {
     };
   }
 
+  async createUser(userData: any): Promise<any> {
+    console.log('CREATING USER IN AUTH SERVICE:', userData);
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
+    userData.email = userData.email.toLowerCase();
+    userData.username = userData.username.toLowerCase();
+
+    const newUser = new this.userModel({
+      ...userData,
+      show: true,
+      password: hashedPassword
+    });
+
+    const savedUser = await newUser.save();
+
+    const payload = {
+      sub: savedUser._id,
+      username: savedUser.username,
+      email: savedUser.email
+    };
+    const token = this.jwtService.sign(payload);
+
+    return {
+      token,
+      id: savedUser._id,
+      username: savedUser.username,
+      email: savedUser.email,
+      name: savedUser.name,
+      lastName: savedUser.lastName,
+      birthDate: savedUser.birthDate,
+      description: savedUser.description || "",
+      image_url: savedUser.image_url || "",
+      show: savedUser.show,
+      admin : savedUser.admin
+    };
+  }
+
   // LOGIN
   async login(usernameOrEmail: string, password: string) {
     const user = await this.userModel.findOne({

@@ -46,4 +46,11 @@ export class AuthController {
     return await this.authService.login(body.usernameOrEmail, body.password);
   }
 
+  @Post('createUser')
+  async createUser(
+    @Body() body: { name: string; lastName: string; username: string; email: string; password: string; confirmPassword: string; birthDate: string; description: string; image_url: string; admin: boolean }
+  ): Promise<{}> {
+    return await this.authService.createUser(body);
+  }
+
 }

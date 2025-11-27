@@ -47,6 +47,33 @@ export class Auth {
     }
   }
 
+  async createUser(formData: FormData): Promise<{ success: boolean; message: string }> {
+    console.log('Createuser:', formData);
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean; message: string; user?: any }>(
+          `${this.apiUrl}/createUser`,
+          formData
+        )
+      );
+      console.log('RESPONSE:', response);
+      if (response.success && response.user) {
+        // Guardar en signal
+        this.user.set(response.user);
+        console.log('USER:', response.user);
+        // Guardar en localStorage (persistencia)
+        localStorage.setItem('user', JSON.stringify(response.user));
+      }
+
+      return response;
+
+    } catch (error) {
+      this.user.set(false);
+      console.error('ERROR EN REGISTRO:', error);
+      throw error;
+    }
+  }
+
   async login(usernameOrEmail: string, password: string): Promise<{ success: boolean; message: string }> {
     try {
       const user = await firstValueFrom(
