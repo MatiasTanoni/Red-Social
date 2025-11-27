@@ -36,6 +36,7 @@ export class Publications implements OnInit {
   imagePost: string = '';
   previewImage: string | null = null;
   selectedImage: File | null = null;
+  show: boolean = true;
 
   constructor(
     private pubService: PublicationsService,
@@ -87,12 +88,13 @@ export class Publications implements OnInit {
 
   uploadPublications() {
     this.loading = true;
-    this.pubService.getPublications(this.page, this.orderBy /*, this.limit */).subscribe({
+    this.pubService.getPublications(this.page, this.orderBy, this.admin /*, this.limit */).subscribe({
       next: (data) => {
         this.publications = data.slice(0, 3);
         console.log("Publicaciones:", this.publications);
         this.loading = false;
         this.cdr.detectChanges();
+        console.log("showw", this.publications[0].show)
       },
       error: (err) => {
         console.error(err);
@@ -174,6 +176,12 @@ export class Publications implements OnInit {
   manageDelete(id: string) {
     console.log("🔵 Eliminando post con id:", id);
     this.pubService.deletePublication(id).subscribe(() => this.uploadPublications());
+  }
+
+  manageDisable(id: string) {
+    console.log("🔵 Deshabilitando post con id:", id);
+    this.uploadPublications();
+    this.cdr.detectChanges();
   }
 
   removeImage() {

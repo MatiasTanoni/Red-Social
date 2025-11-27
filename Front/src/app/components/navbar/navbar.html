@@ -39,6 +39,15 @@
                 Estadísticas
             </a>
         </li>
+        @if (user && user.admin) {
+        <li>
+            <a [routerLink]="!blockNavegation ? '/dashboard' : null"
+                routerLinkActive="border-b-2 border-white font-semibold text-white"
+                class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+                Dashboard
+            </a>
+        </li>
+        }
 
         @if (!user) {
         <li>
@@ -82,6 +91,15 @@
             Estadísticas
         </a>
     </li>
+    @if (user && user.admin) {
+    <li>
+        <a [routerLink]="!blockNavegation ? '/dashboard' : null"
+            routerLinkActive="border-b-2 border-white font-semibold text-white"
+            class="pb-1 transition hover:text-gray-300" [class.cursor-not-allowed]="blockNavegation">
+            Dashboard
+        </a>
+    </li>
+    }
 
     @if (!user) {
     <li>

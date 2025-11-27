@@ -86,9 +86,10 @@ export class PostsController {
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 10,
         @Query('orderBy') orderBy: 'fecha' | 'likes' = 'fecha',
-        @Query('isAdmin') isAdmin: string
+        @Query('admin') admin: string | boolean
     ) {
-        return this.postsService.findAll(page, limit, orderBy, isAdmin);
+        console.log("CONTROLLER admin", admin)
+        return this.postsService.findAll(page, limit, orderBy, admin);
     }
 
     @Get('user/:id')
@@ -123,4 +124,11 @@ export class PostsController {
         return this.postsService.editComment(publicationId, commentId, newText);
     }
 
+    @Put(':id/disable')
+    async disable(
+        @Param('id') publicationId: string,
+    ) {
+        console.log("🔵 Desabilitando publicación:", publicationId);
+        return this.postsService.disable(publicationId);
+    }
 }

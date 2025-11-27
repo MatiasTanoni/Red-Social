@@ -4,6 +4,7 @@ import { Post } from './schemas/post.schema';
 import { ForbiddenException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Types } from 'mongoose';
+import e from 'express';
 
 @Injectable()
 export class PostsService {
@@ -51,16 +52,23 @@ export class PostsService {
         page: number = 1,
         limit: number = 10,
         orderBy: 'fecha' | 'likes' = 'fecha',
-        isAdmin: string,
+        admin: string | boolean,
     ): Promise<any[]> {
         try {
+            console.log("SERVICE admin", admin)
             // Fix: convertir query params a número
             page = Number(page);
             limit = Number(limit);
             const skip = (page - 1) * limit;
-
-            const filter = isAdmin === 'true' ? {} : { show: true };
-
+            console.log("adminn", typeof admin)
+            if (admin === "false") {
+                admin = false;
+            }
+            else if (admin === "true") {
+                admin = true;
+            }
+            const filter = admin ? {} : { show: true };
+            console.log("FILTER", filter)
             if (orderBy === 'fecha') {
                 return await this.postModel
                     .find(filter)
@@ -179,5 +187,22 @@ export class PostsService {
         await publication.save();
 
         return publication;
+    }
+
+    async disable(id: string): Promise<void> {
+        const publication = await this.postModel.findById(id);
+
+        if (!publication) {
+            throw new NotFoundException('Publicación no encontrada');
+        }
+
+        if (publication.show) {
+            publication.show = false;
+        }
+        else {
+            publication.show = true;
+        }
+
+        await publication.save();
     }
 }

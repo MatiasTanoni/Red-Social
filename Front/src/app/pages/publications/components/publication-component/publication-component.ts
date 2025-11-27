@@ -19,8 +19,10 @@ export class PublicationComponent {
   @Input() image_url!: string;
   @Input() itsOwnProfile: boolean = false;
   @Input() admin: boolean = false;
+  @Input() show: boolean = true;
   @Output() like = new EventEmitter<number>();
   @Output() delete = new EventEmitter<string>();
+  @Output() disable = new EventEmitter<string>();
   editingCommentId: string | null = null;
   editingCommentText: string = '';
 
@@ -96,4 +98,11 @@ export class PublicationComponent {
     this.editingCommentText = '';
   }
 
+  onDisable() {
+    this.pubService.disable(this.publication._id).subscribe(() => {
+      this.publication.show = false;
+      this.cdr.detectChanges();
+    });
+    this.disable.emit(this.publication._id);
+  }
 }

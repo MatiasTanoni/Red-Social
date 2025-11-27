@@ -11,9 +11,10 @@ export class PublicationsService {
 
   constructor(private http: HttpClient) { }
 
-  getPublications(page: number, orderBy: 'fecha' | 'likes', limit = 3) {
+  getPublications(page: number, orderBy: 'fecha' | 'likes', admin: boolean, limit = 3) {
+    console.log("admin", admin);
     return this.http.get<Publication[]>(
-      `${this.apiUrl}/all?page=${page}&orderBy=${orderBy}&limit=${limit}`
+      `${this.apiUrl}/all?page=${page}&orderBy=${orderBy}&admin=${admin}&limit=${limit}`
     );
   }
 
@@ -62,4 +63,7 @@ export class PublicationsService {
     );
   }
 
+  disable(id: string) {
+    return this.http.put(`${this.apiUrl}/${id}/disable`, {});
+  }
 }
