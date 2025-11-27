@@ -6,7 +6,7 @@ export interface Comment {
     lastName: string;
     image_url: string;
     content: string;
-    edited: boolean;
+    edited?: boolean;
     show: boolean;
     date: Date;
     text: string;

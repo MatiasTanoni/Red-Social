@@ -106,7 +106,7 @@ export class PostsController {
     @Post(':id/comment')
     addComment(
         @Param('id') id: string,
-        @Body() body: { image_url: string; idUser: string; username: string; text: string }
+        @Body() body: { image_url: string; idUser: string; username: string; text: string, edited: boolean }
     ) {
         console.log("🔵 Enviando comentario:", body);
         console.log("🔵 IDUser:", body.idUser);

@@ -58,6 +58,7 @@ export class PublicationComponent {
 
     this.pubService.addComment(this.publication._id,
       {
+        edited : false,
         image_url: this.image_url,
         idUser: this.idUser,
         username: this.username,
@@ -79,7 +80,7 @@ export class PublicationComponent {
     this.pubService.editComment(
       publicationId,
       this.editingCommentId!,
-      this.editingCommentText.trim()
+      this.editingCommentText.trim(),
     ).subscribe((updated: Publication) => {
       this.publication.comments = updated.comments;
 

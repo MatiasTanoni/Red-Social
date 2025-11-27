@@ -142,7 +142,7 @@ export class PostsService {
 
     async addComment(
         id: string,
-        comment: { image_url: string; idUser: string; username: string; text: string }
+        comment: { image_url: string; idUser: string; username: string; text: string, edited: boolean }
     ) {
         const post = await this.postModel.findById(id);
 
@@ -173,11 +173,11 @@ export class PostsService {
         }
 
         comment.text = newText;
-        comment.date = new Date(); // opcional si querés actualizar la fecha
+        comment.date = new Date();
+        comment.edited = true;
 
         await publication.save();
 
         return publication;
     }
-
 }

@@ -22,6 +22,7 @@ export class Post extends Document {
                 text: { type: String, required: true },
                 image_url: { type: String, required: false },
                 date: { type: Date, default: Date.now },
+                edited: { type: Boolean, default: false }
             }
         ],
         default: []
@@ -34,6 +35,7 @@ export class Post extends Document {
         text: string;
         image_url?: string;
         date: Date;
+        edited: boolean;
     }>;
 
     @Prop({ default: Date.now })

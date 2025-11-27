@@ -77,13 +77,24 @@
 
                 <div class="bg-gray-800/50 p-3 rounded-2xl rounded-tl-none border border-gray-700/30 flex-1">
                     <div class="flex flex-col">
-                        <span class="font-bold text-blue-400 text-sm mb-0.5 hover:underline cursor-pointer">
-                            {{ c.username }}
-                        </span>
-                        <!-- Si NO estoy editando este comentario -->
+
+                        <div class="flex items-baseline gap-2 mb-1">
+                            <span class="font-bold text-blue-400 text-sm hover:underline cursor-pointer">
+                                {{ c.username }}
+                            </span>
+                            <span class="text-xs text-gray-500">
+                                {{ c.date || publication.date | date:'dd/MM/yyyy HH:mm' }}
+                            </span>
+                        </div>
+
                         @if (editingCommentId !== c._id) {
                         <p class="text-sm text-gray-200 leading-snug break-words">
                             {{ c.text }}
+                            @if (c.edited) {
+                            <span class="text-xs text-gray-400 ml-1">
+                                (editado)
+                            </span>
+                            }
                         </p>
                         }
 
