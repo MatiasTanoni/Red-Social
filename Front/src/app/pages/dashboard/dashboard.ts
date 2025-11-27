@@ -13,6 +13,7 @@ import { Auth } from '../../service/auth';
 import { Router } from '@angular/router';
 import { CloudinaryService } from '../../service/cloudinary/cloudinary';
 import { firstValueFrom } from 'rxjs';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,8 +28,9 @@ export class Dashboard implements OnInit {
   selectedFile: File | null = null;
   previewImage: string | null = null;
   users: any[] = [];
+  loading = false;
 
-  constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router, private cloudinary: CloudinaryService) { }
+  constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router, private cloudinary: CloudinaryService, private zone: NgZone) { }
 
   async ngOnInit() {
 
@@ -67,11 +69,11 @@ export class Dashboard implements OnInit {
       }
     );
     const res = await firstValueFrom(this.auth.getUsers());
-    this.users = res.users;
+    this.zone.run(() => {
+      this.users = res.users;
+      this.cdr.detectChanges();
+    });
 
-    console.log(this.users);
-
-    this.cdr.detectChanges();
   }
 
   passwordsMatchValidator(
@@ -112,11 +114,10 @@ export class Dashboard implements OnInit {
 
 
   async onRegister() {
-    // Marcar todos los campos como "tocados" para mostrar errores
+
     this.formulario.markAllAsTouched();
 
     if (this.formulario.invalid) {
-      console.error('Formulario inválido');
       return;
     }
 
@@ -128,57 +129,44 @@ export class Dashboard implements OnInit {
       this.formulario.patchValue({ image_url: imageUrl });
     }
 
-    console.log("imagen", imageUrl);
     const formValue = this.formulario.value;
+    formValue.admin = formValue.admin === "true";
 
-    console.log('Enviando datos:', formValue);
+    const { success, message } = await this.auth.createUser(formValue);
 
-    if (formValue.admin == "true") {
-      formValue.admin = true;
+    if (success) {
+
+      const res = await firstValueFrom(this.auth.getUsers());
+      this.users = res.users;
+
+      this.formulario.reset();
+      this.selectedFile = null;
+      this.previewImage = null;
+
+      this.cdr.detectChanges();
     }
+
+
     else {
-      formValue.admin = false;
-    }
-
-    try {
-      // Tu servicio de 'auth' debería estar preparado para recibir FormData
-      const { success, message } = await this.auth.createUser(formValue);
-
-      if (success) {
-
-        const res = await firstValueFrom(this.auth.getUsers());
-        this.users = res.users;
-
-        this.formulario.reset();
-
-        this.selectedFile = null;
-        this.previewImage = null;
-
-        this.cdr.detectChanges();
-      }
-
-      else {
-        console.error('Error en el registro:', message);
-        if (message === 'User already registered') {
-          this.registerError = 'El usuario ya está registrado.';
-        } else {
-          this.registerError = message;
-        }
-      }
-      this.cdr.detectChanges();
-    } catch (error: any) {
-      console.error('Error en el registro:', error);
-
-      if (error?.error?.message === 'User already registered') {
+      console.error('Error en el registro:', message);
+      if (message === 'User already registered') {
         this.registerError = 'El usuario ya está registrado.';
-      } else if (error?.error?.message) {
-        this.registerError = error.error.message;
       } else {
-        this.registerError = 'Ocurrió un error inesperado durante el registro.';
+        this.registerError = message;
       }
+    }
+    this.cdr.detectChanges();
+  } catch(error: any) {
 
-      this.cdr.detectChanges();
+    if (error?.error?.message === 'User already registered') {
+      this.registerError = 'El usuario ya está registrado.';
+    } else if (error?.error?.message) {
+      this.registerError = error.error.message;
+    } else {
+      this.registerError = 'Ocurrió un error inesperado durante el registro.';
     }
 
+    this.cdr.detectChanges();
   }
+
 }
