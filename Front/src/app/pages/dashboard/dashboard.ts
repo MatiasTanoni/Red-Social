@@ -133,12 +133,12 @@ export class Dashboard implements OnInit {
     formValue.admin = formValue.admin === "true";
 
     const { success, message } = await this.auth.createUser(formValue);
-
+    console.log("🔵 Creando usuario:", success, message);
     if (success) {
-
+      console.log("Usuario creado exitosamente");
       const res = await firstValueFrom(this.auth.getUsers());
       this.users = res.users;
-
+      window.location.reload();
       this.formulario.reset();
       this.selectedFile = null;
       this.previewImage = null;
@@ -148,7 +148,7 @@ export class Dashboard implements OnInit {
 
 
     else {
-      console.error('Error en el registro:', message);
+      console.error('Error en el registro:', message, success);
       if (message === 'User already registered') {
         this.registerError = 'El usuario ya está registrado.';
       } else {
