@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Publication, Comment } from '../../../../models/publication.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-publication',
@@ -26,7 +27,7 @@ export class PublicationComponent {
   editingCommentId: string | null = null;
   editingCommentText: string = '';
 
-  constructor(private pubService: PublicationsService, private cdr: ChangeDetectorRef) { }
+  constructor(private pubService: PublicationsService, private cdr: ChangeDetectorRef, private iconRegistry: MatIconRegistry) { }
 
   onLike(id: string, idUser: string) {
     this.pubService.toggleLike(id, idUser).subscribe((updatedPub: Publication) => {
