@@ -47,7 +47,7 @@ export class AuthService {
       description: savedUser.description || "",
       image_url: savedUser.image_url || "",
       show: savedUser.show,
-      admin : savedUser.admin
+      admin: savedUser.admin
     };
   }
 
@@ -84,7 +84,7 @@ export class AuthService {
       description: savedUser.description || "",
       image_url: savedUser.image_url || "",
       show: savedUser.show,
-      admin : savedUser.admin
+      admin: savedUser.admin
     };
   }
 
@@ -121,7 +121,7 @@ export class AuthService {
       description: user.description || "",
       image_url: user.image_url || "",
       show: user.show,
-      admin : user.admin
+      admin: user.admin
     };
   }
 
@@ -131,5 +131,9 @@ export class AuthService {
 
   async findOneByUsername(username: string): Promise<CreateUserDto | null> {
     return this.userModel.findOne({ username }).exec();
+  }
+
+  async findAll(): Promise<any[]> {
+    return this.userModel.find().select('-password').exec();
   }
 }

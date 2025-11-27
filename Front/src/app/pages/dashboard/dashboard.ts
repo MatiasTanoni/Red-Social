@@ -26,10 +26,13 @@ export class Dashboard implements OnInit {
   registerError: string | null = null;
   selectedFile: File | null = null;
   previewImage: string | null = null;
+  users: any[] = [];
 
   constructor(private auth: Auth, private cdr: ChangeDetectorRef, private router: Router, private cloudinary: CloudinaryService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+
     this.formulario = new FormGroup(
       {
         name: new FormControl('', [
@@ -63,6 +66,12 @@ export class Dashboard implements OnInit {
         validators: this.passwordsMatchValidator,
       }
     );
+    const res = await firstValueFrom(this.auth.getUsers());
+    this.users = res.users;
+
+    console.log(this.users);
+
+    this.cdr.detectChanges();
   }
 
   passwordsMatchValidator(
@@ -133,12 +142,22 @@ export class Dashboard implements OnInit {
 
     try {
       // Tu servicio de 'auth' debería estar preparado para recibir FormData
-      const { success, message } = await this.auth.register(formValue);
+      const { success, message } = await this.auth.createUser(formValue);
 
       if (success) {
-        this.router.navigate(['/publications']);
-        // Redirigir al login, al home, etc.
-      } else {
+
+        const res = await firstValueFrom(this.auth.getUsers());
+        this.users = res.users;
+
+        this.formulario.reset();
+
+        this.selectedFile = null;
+        this.previewImage = null;
+
+        this.cdr.detectChanges();
+      }
+
+      else {
         console.error('Error en el registro:', message);
         if (message === 'User already registered') {
           this.registerError = 'El usuario ya está registrado.';

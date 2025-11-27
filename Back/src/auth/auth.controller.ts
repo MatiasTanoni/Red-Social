@@ -53,4 +53,9 @@ export class AuthController {
     return await this.authService.createUser(body);
   }
 
+  @Get('users')
+  async findAllUsers() {
+    const users = await this.authService.findAll();
+    return { success: true, users };
+  }
 }

@@ -1,193 +1,265 @@
-<form [formGroup]="formulario" (ngSubmit)="onRegister()" class="bg-black border border-gray-800 rounded-2xl p-8 shadow-2xl w-full max-w-sm text-white mx-auto mb-6
-         min-w-[350px] overflow-hidden">
+<div class="min-h-screen bg-[#0f0f12] p-6 flex justify-center items-start font-sans mb-6">
 
-    <div class="flex justify-center mb-6">
-        <img src="icono.png" alt="Icono" class="h-24 w-24 bg-white rounded-md p-1" />
-    </div>
+    <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-    <h1 class="text-3xl font-extrabold text-center mb-3 tracking-wide">
-        Crear Usuario
-    </h1>
+        <form [formGroup]="formulario" (ngSubmit)="onRegister()"
+            class="w-full bg-[#18181b] border border-gray-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-white">
 
-    <div class="mb-3">
-        <label for="name" class="block text-sm font-medium mb-1 text-gray-400">Nombre</label>
-        <input id="name" type="text" formControlName="name" placeholder="Tu nombre" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('name')?.touched &&
-            formulario.get('name')?.errors?.['required']) {
-            El nombre es obligatorio. } @if (formulario.get('name')?.touched &&
-            formulario.get('name')?.errors?.['minlength']) { Debe tener al menos 2
-            caracteres. } @if (formulario.get('name')?.touched &&
-            formulario.get('name')?.errors?.['maxlength']) { Debe ser menor a 26
-            caracteres. }
-        </div>
-    </div>
+            <div
+                class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-blue-600 to-purple-600">
+            </div>
 
-    <div class="mb-3">
-        <label for="lastName" class="block text-sm font-medium mb-1 text-gray-400">Apellido</label>
-        <input id="lastName" type="text" formControlName="lastName" placeholder="Tu apellido" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('lastName')?.touched &&
-            formulario.get('lastName')?.errors?.['required']) { El apellido es
-            obligatorio. } @if (formulario.get('lastName')?.touched &&
-            formulario.get('lastName')?.errors?.['minlength']) { Debe tener al menos 2
-            caracteres. } @if (formulario.get('lastName')?.touched &&
-            formulario.get('lastName')?.errors?.['maxlength']) { Debe ser menor a 26
-            caracteres. }
-        </div>
-    </div>
+            <div class="flex flex-col items-center mb-8">
+                <div class="bg-white rounded-2xl p-2 mb-4 shadow-lg shadow-blue-500/10">
+                    <img src="icono.png" alt="Icono" class="h-16 w-16 object-contain" />
+                </div>
+                <h1 class="text-3xl font-bold text-center tracking-tight text-white">
+                    Crear Usuario
+                </h1>
+            </div>
 
-    <div class="mb-3">
-        <label for="username" class="block text-sm font-medium mb-1 text-gray-400">Nombre de usuario</label>
-        <input id="username" type="text" formControlName="username" placeholder="Tu usuario"
-            class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('username')?.touched &&
-            formulario.get('username')?.errors?.['required']) { El usuario es
-            obligatorio. } @if (formulario.get('username')?.touched &&
-            formulario.get('username')?.errors?.['minlength']) { Debe tener al menos 4
-            caracteres. }
-        </div>
-    </div>
+            <div class="mb-7 relative">
+                <label for="name"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Nombre</label>
+                <input id="name" type="text" formControlName="name" placeholder="Tu nombre"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm" />
 
-    <div class="mb-3">
-        <label for="email" class="block text-sm font-medium mb-1 text-gray-400">Correo electrónico</label>
-        <input id="email" type="email" formControlName="email" placeholder="ejemplo@correo.com" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('email')?.invalid && formulario.get('email')?.touched)
-            { Ingresa un correo válido. }
-        </div>
-    </div>
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('name')?.touched && formulario.get('name')?.errors?.['required']) {
+                    El nombre es obligatorio.
+                    } @if (formulario.get('name')?.touched && formulario.get('name')?.errors?.['minlength']) {
+                    Mínimo 2 caracteres.
+                    } @if (formulario.get('name')?.touched && formulario.get('name')?.errors?.['maxlength']) {
+                    Máximo 25 caracteres.
+                    }
+                </div>
+            </div>
 
-    <div class="mb-3">
-        <label for="password" class="block text-sm font-medium mb-1 text-gray-400">Contraseña</label>
-        <input id="password" type="password" formControlName="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-6 text-red-700 text-sm mt-1">
-            @if (formulario.get('password')?.touched &&
-            formulario.get('password')?.errors?.['required']) { La contraseña es
-            obligatoria. } @if (formulario.get('password')?.touched &&
-            formulario.get('password')?.errors?.['minlength']) { Debe tener al menos 8
-            caracteres. } @if (formulario.get('password')?.touched &&
-            formulario.get('password')?.errors?.['pattern']) { Debe tener al menos 1
-            mayúscula y 1 número. }
-        </div>
-    </div>
+            <div class="mb-7 relative">
+                <label for="lastName"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Apellido</label>
+                <input id="lastName" type="text" formControlName="lastName" placeholder="Tu apellido"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm" />
 
-    <div class="mb-3">
-        <label for="confirmPassword" class="block text-sm font-medium mb-1 text-gray-400">Repetir Contraseña</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-6 text-red-700 text-sm mt-1">
-            @if (formulario.get('confirmPassword')?.touched &&
-            formulario.get('confirmPassword')?.errors?.['required']) { Confirma la
-            contraseña. } @if (formulario.touched &&
-            formulario.errors?.['passwordsMismatch']) { Las contraseñas no coinciden. }
-        </div>
-    </div>
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('lastName')?.touched && formulario.get('lastName')?.errors?.['required']) {
+                    El apellido es obligatorio.
+                    } @if (formulario.get('lastName')?.touched && formulario.get('lastName')?.errors?.['minlength']) {
+                    Mínimo 2 caracteres.
+                    }
+                </div>
+            </div>
 
-    <div class="mb-3">
-        <label for="birthDate" class="block text-sm font-medium mb-1 text-gray-400">Fecha de nacimiento</label>
-        <input id="birthDate" type="date" formControlName="birthDate" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition" />
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('birthDate')?.touched &&
-            formulario.get('birthDate')?.errors?.['required']) { La fecha de nacimiento
-            es obligatoria. }
-        </div>
-    </div>
+            <div class="mb-7 relative">
+                <label for="username"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Usuario</label>
+                <input id="username" type="text" formControlName="username" placeholder="Tu usuario"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm" />
 
-    <div class="mb-3">
-        <label class="block text-sm font-medium mb-1 text-gray-400">Tipo de Perfil</label>
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('username')?.touched && formulario.get('username')?.errors?.['required']) {
+                    El usuario es obligatorio.
+                    } @if (formulario.get('username')?.touched && formulario.get('username')?.errors?.['minlength']) {
+                    Mínimo 4 caracteres.
+                    }
+                </div>
+            </div>
 
-        <div class="flex gap-4">
-            <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" formControlName="admin" value="false"
-                    class="w-4 h-4 text-white border-gray-700 focus:ring-white" />
-                Usuario
-            </label>
+            <div class="mb-7 relative">
+                <label for="email"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Correo
+                    electrónico</label>
+                <input id="email" type="email" formControlName="email" placeholder="ejemplo@correo.com"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm" />
 
-            <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" formControlName="admin" value="true"
-                    class="w-4 h-4 text-white border-gray-700 focus:ring-white" />
-                Administrador
-            </label>
-        </div>
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('email')?.invalid && formulario.get('email')?.touched) {
+                    Ingresa un correo válido.
+                    }
+                </div>
+            </div>
 
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('admin')?.touched &&
-            formulario.get('admin')?.errors?.['required']) {
-            El perfil es obligatorio.
-            }
-        </div>
-    </div>
+            <div class="mb-7 relative">
+                <label for="password"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Contraseña</label>
+                <input id="password" type="password" formControlName="password" placeholder="••••••••"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm" />
 
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('password')?.touched && formulario.get('password')?.errors?.['required']) {
+                    Requerida.
+                    } @if (formulario.get('password')?.touched && formulario.get('password')?.errors?.['minlength']) {
+                    Mínimo 8 caracteres.
+                    } @if (formulario.get('password')?.touched && formulario.get('password')?.errors?.['pattern']) {
+                    1 mayúscula y 1 número.
+                    }
+                </div>
+            </div>
 
-    <div class="mb-3">
-        <label for="description" class="block text-sm font-medium mb-1 text-gray-400">Descripción breve</label>
-        <textarea id="description" formControlName="description" placeholder="Descripción breve, max 50 caracteres"
-            rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-white placeholder-gray-500 
-            focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition"></textarea>
-        <div class="h-5 text-red-700 text-sm mt-1">
-            @if (formulario.get('description')?.touched &&
-            formulario.get('description')?.errors?.['required']) { La descripción es
-            obligatoria. }
-            @if (formulario.get('description')?.errors?.['maxlength']) { La descripción
-            es muy larga. }
-        </div>
-    </div>
+            <div class="mb-7 relative">
+                <label for="confirmPassword"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Repetir
+                    Contraseña</label>
+                <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="••••••••"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm" />
 
-    <!-- seleccionar foto -->
-    <div class="flex flex-col items-center gap-3 mt-4">
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('confirmPassword')?.touched &&
+                    formulario.get('confirmPassword')?.errors?.['required']) {
+                    Confirma la contraseña.
+                    } @if (formulario.touched && formulario.errors?.['passwordsMismatch']) {
+                    Las contraseñas no coinciden.
+                    }
+                </div>
+            </div>
 
-        <!-- Botón cuando NO hay foto -->
-        @if (!previewImage) {
-        <button type="button" (click)="fileInput.click()" class="w-full py-3 px-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold shadow-lg border border-gray-700
-                   flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
+            <div class="mb-7 relative">
+                <label for="birthDate"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Fecha de
+                    nacimiento</label>
+                <input id="birthDate" type="date" formControlName="birthDate"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm [color-scheme:dark]" />
 
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h2l2-3h10l2 3h2v13H3V7z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 11v6m3-3H9" />
-            </svg>
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('birthDate')?.touched && formulario.get('birthDate')?.errors?.['required']) {
+                    La fecha es obligatoria.
+                    }
+                </div>
+            </div>
 
-            Seleccionar foto
-        </button>
+            <div class="mb-7 relative">
+                <label class="block text-xs font-medium mb-2 text-gray-400 uppercase tracking-wider ml-1">Tipo de
+                    Perfil</label>
 
-        <input type="file" #fileInput accept="image/*" (change)="onImageSelected($event)" hidden />
-        }
+                <div class="flex gap-4">
+                    <label class="flex-1 cursor-pointer relative group">
+                        <input type="radio" formControlName="admin" value="false" class="peer sr-only" />
+                        <div
+                            class="py-3 px-4 rounded-xl bg-[#27272a] border border-gray-700 text-center text-gray-300 peer-checked:bg-blue-500/10 peer-checked:border-blue-500 peer-checked:text-blue-400 transition-all hover:bg-[#323238]">
+                            Usuario
+                        </div>
+                    </label>
 
-        <!-- Vista previa de la foto -->
-        @if (previewImage) {
-        <div class="relative">
-            <img [src]="previewImage" alt="Foto seleccionada"
-                class="w-28 h-28 object-cover rounded-2xl border border-gray-700 shadow-lg" />
+                    <label class="flex-1 cursor-pointer relative group">
+                        <input type="radio" formControlName="admin" value="true" class="peer sr-only" />
+                        <div
+                            class="py-3 px-4 rounded-xl bg-[#27272a] border border-gray-700 text-center text-gray-300 peer-checked:bg-purple-500/10 peer-checked:border-purple-500 peer-checked:text-purple-400 transition-all hover:bg-[#323238]">
+                            Administrador
+                        </div>
+                    </label>
+                </div>
 
-            <!-- boton borrar -->
-            <button type="button" (click)="removePicture()"
-                class="absolute -top-2 -right-2 bg-red-600 hover:bg-red-700 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md transition cursor-pointer">
-                ✕
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('admin')?.touched && formulario.get('admin')?.errors?.['required']) {
+                    El perfil es obligatorio.
+                    }
+                </div>
+            </div>
+
+            <div class="mb-7 relative">
+                <label for="description"
+                    class="block text-xs font-medium mb-1 text-gray-400 uppercase tracking-wider ml-1">Descripción
+                    breve</label>
+                <textarea id="description" formControlName="description" placeholder="Descripción breve" rows="3"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-[#27272a] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-sm resize-none"></textarea>
+
+                <div class="absolute -bottom-5 left-1 text-red-400 text-xs font-medium truncate w-full">
+                    @if (formulario.get('description')?.touched && formulario.get('description')?.errors?.['required'])
+                    {
+                    La descripción es obligatoria.
+                    } @if (formulario.get('description')?.errors?.['maxlength']) {
+                    Máximo 50 caracteres.
+                    }
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-4 mt-6 relative pb-6">
+
+                @if (!previewImage) {
+                <button type="button" (click)="fileInput.click()"
+                    class="w-full py-4 px-4 rounded-xl bg-[#27272a] hover:bg-[#323238] border border-dashed border-gray-600 hover:border-blue-500 text-gray-400 hover:text-blue-400 font-semibold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Seleccionar foto
+                </button>
+                <input type="file" #fileInput accept="image/*" (change)="onImageSelected($event)" hidden />
+                }
+
+                @if (previewImage) {
+                <div class="relative group">
+                    <img [src]="previewImage" alt="Foto seleccionada"
+                        class="w-32 h-32 object-cover rounded-2xl border-4 border-gray-800 shadow-xl" />
+
+                    <button type="button" (click)="removePicture()"
+                        class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition cursor-pointer transform hover:scale-110">
+                        ✕
+                    </button>
+                </div>
+                }
+
+                <div class="absolute bottom-0 text-red-400 text-xs font-medium">
+                    @if (formulario.get('image_url')?.invalid && formulario.get('image_url')?.touched) {
+                    La imagen es obligatoria.
+                    }
+                </div>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-lg mt-4 py-4 px-6 rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-200 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed">
+                Registrarse
             </button>
-        </div>
-        }
-    </div>
 
-    <div class="h-5 text-red-700 text-sm mt-1">
-        @if (formulario.get('image_url')?.invalid && formulario.get('image_url')?.touched) {
-        La imagen es obligatoria.
-        }
-    </div>
+            @if (registerError) {
+            <div
+                class="mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-center text-red-400 font-medium animate-pulse">
+                {{ registerError }}
+            </div>
+            }
+        </form>
 
-    <button type="submit "
-        class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold mt-2 py-3 px-4 rounded-2xl shadow-lg transition-transform duration-200 transform hover:-translate-y-1 hover:shadow-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
-        Registrarse
-    </button>
-    @if (registerError) {
-    <div class="mt-4 text-center text-red-700 font-medium">
-        {{ registerError }}
+        <section class="flex flex-col gap-6">
+            <div
+                class="bg-[#18181b] border border-gray-800 rounded-3xl p-6 shadow-xl flex justify-between items-center text-white">
+                <div>
+                    <h3 class="text-xl font-bold">Usuarios</h3>
+                    <p class="text-gray-400 text-sm">Lista de registrados</p>
+                </div>
+                <div class="bg-[#27272a] p-2 rounded-lg text-gray-400">
+                    {{ users.length }}
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                @for (user of users; track user) {
+                <div
+                    class="bg-[#18181b] border border-gray-800 p-4 rounded-2xl flex items-center gap-4 hover:border-gray-600 transition-colors shadow-lg">
+                    <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-900 border border-gray-700 shrink-0">
+                        @if (user.image_url) {
+                        <img [src]="user.image_url" class="w-full h-full object-cover">
+                        } @else {
+                        <div class="w-full h-full flex items-center justify-center text-gray-500 font-bold">?</div>
+                        }
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white font-semibold truncate">{{ user.username }}</p>
+                        <p class="text-gray-500 text-xs truncate">{{ user.email }}</p>
+                    </div>
+
+                    @if (user.admin) {
+                    <span
+                        class="px-2 py-1 rounded-lg text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">ADMIN</span>
+                    } @else {
+                    <span
+                        class="px-2 py-1 rounded-lg text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">USER</span>
+                    }
+                </div>
+                }
+            </div>
+        </section>
+
     </div>
-    }
-</form>
+</div>

@@ -106,4 +106,8 @@ export class Auth {
   getUser(): any | boolean {
     return this.user();
   }
+
+  getUsers() {
+    return this.http.get<{ success: boolean; users: any[] }>(`${this.apiUrl}/users`);
+  }
 }
