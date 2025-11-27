@@ -62,7 +62,8 @@
 
             <div class="rounded-lg overflow-hidden">
                 <app-publication [publication]="p" [idUser]="idUser" [image_url]="image_url"
-                    [itsOwnProfile]="p.idUser === idUser" (delete)="manageDelete($event)">
+                    [itsOwnProfile]="p.idUser === idUser" [username]="username" (like)="manageLike()"
+                    (delete)="manageDelete($event)">
                 </app-publication>
             </div>
         </div>
