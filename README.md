@@ -46,7 +46,7 @@ El enfoque principal del desarrollo ha sido la experiencia de usuario (UX), impl
 | **Estilos** | Tailwind CSS | Diseño responsivo y sistema de temas (Dark Mode). |
 | **Backend** | NestJS | API RESTful, lógica de negocio y seguridad. |
 | **Lenguaje** | TypeScript | Tipado estático para todo el proyecto. |
-| **Base de Datos** | *[Tu DB]* | Persistencia de datos (ej. MySQL, MongoDB, PostgreSQL). |
+| **Base de Datos** | MongoDB | Persistencia de datos. |
 
 ---
 
