@@ -29,7 +29,7 @@ export class Auth {
           formData
         )
       );
-
+      console.log('RESPONSE:', response);
       if (response.success && response.user) {
         // Guardar en signal
         this.user.set(response.user);
@@ -52,7 +52,7 @@ export class Auth {
       const user = await firstValueFrom(
         this.http.post<any>(`${this.apiUrl}/login`, { usernameOrEmail, password })
       );
-
+      console.log('LOGIN:', user);
       // Guardar en memoria
       this.user.set(user);
 
