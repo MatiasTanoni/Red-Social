@@ -13,6 +13,8 @@
 
 ## 📖 Descripción
 
+PROYECTO DE PROGRAMACIÓN 4 | SEGUNDO PARCIAL | UTN
+
 Este proyecto es una **Red Social Completa** (Full Stack) que permite a los usuarios registrarse, crear publicaciones, interactuar mediante likes/comentarios y gestionar su perfil. Además, cuenta con un panel administrativo robusto para la visualización de métricas clave.
 
 El enfoque principal del desarrollo ha sido la experiencia de usuario (UX), implementando un diseño **Dark Mode** limpio y estético, y una arquitectura de software sólida utilizando **Angular** en el frontend y **NestJS** en el backend.
