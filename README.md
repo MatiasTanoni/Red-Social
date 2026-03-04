@@ -21,6 +21,39 @@ El enfoque principal del desarrollo ha sido la experiencia de usuario (UX), impl
 
 ---
 
+## 📸 Vistas principales de la aplicación
+
+*📰 Publicaciones*
+
+![Publicaciones](Front/public/fotosReadme/publicaciones.png)
+
+Pantalla principal donde los usuarios pueden crear, visualizar e interactuar con publicaciones.
+Crear nuevos posts
+Dar like y comentar
+Feed dinámico en tiempo real
+Diseño responsive
+
+
+*👤 Perfil de Usuario*
+
+![Publicaciones](Front/public/fotosReadme/perfil.png)
+
+Sección donde cada usuario puede gestionar su información y ver su actividad.
+Foto de perfil editable
+Bio personalizada
+Listado de publicaciones propias
+Contador de seguidores / seguidos
+
+*📊 Estadísticas*
+
+![Publicaciones](Front/public/fotosReadme/estadisticas.png)
+
+Panel analítico con métricas de interacción del usuario.
+Total de publicaciones
+Cantidad de likes recibidos
+Seguidores ganados
+Gráficos de crecimiento
+
 ## ✨ Características Principales
 
 ### 👤 Usuarios & Autenticación
