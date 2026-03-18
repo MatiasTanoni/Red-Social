@@ -19,6 +19,8 @@ Este proyecto es una **Red Social Completa** (Full Stack) que permite a los usua
 
 El enfoque principal del desarrollo ha sido la experiencia de usuario (UX), implementando un diseño **Dark Mode** limpio y estético, y una arquitectura de software sólida utilizando **Angular** en el frontend y **NestJS** en el backend.
 
+- **Video Demostración:** [Ver en YouTube](https://www.youtube.com/watch?v=85NC4xmmAls)
+
 ---
 
 ## 📸 Vistas principales de la aplicación
